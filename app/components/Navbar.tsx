@@ -1,172 +1,149 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const openCalendly = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    if (typeof window !== 'undefined' && (window as any).Calendly) {
+      (window as any).Calendly.initPopupWidget({
+        url: 'https://calendly.com/clickminemedia/30min',
+      });
+    } else {
+      window.open('https://calendly.com/clickminemedia/30min', '_blank');
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header style={{
-      position: 'sticky',
-      top: 0,
-      zIndex: 50,
-      width: '100%',
-      backdropFilter: 'blur(20px)',
-      WebkitBackdropFilter: 'blur(20px)',
-      backgroundColor: 'rgba(7, 9, 14, 0.75)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-      transition: 'all 0.3s ease',
-    }}>
-      <div className="container" style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '76px',
-      }}>
-        {/* Logo */}
-        <Link href="/" id="nav-logo" style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          fontWeight: 700,
-          fontSize: '20px',
-          letterSpacing: '-0.02em',
-        }}>
-          <div style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '10px',
-            background: 'linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #8a2be2 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 0 16px rgba(0, 242, 254, 0.4)',
-          }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#07090e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-            </svg>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/80 backdrop-blur-xl border-b border-slate-200/80 shadow-sm py-3.5'
+          : 'bg-transparent py-5'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
+        {/* Click Mine Media Logo */}
+        <Link href="/" id="nav-logo" className="flex items-center gap-3 group">
+          <div className="relative h-10 w-36 sm:h-11 sm:w-44 flex items-center">
+            <Image
+              src="/cmm-logo.png"
+              alt="Click Mine Media Logo"
+              width={180}
+              height={44}
+              className="object-contain"
+              priority
+              unoptimized
+            />
           </div>
-          <span>
-            ClickMine<span style={{ color: '#00f2fe' }}>Media</span>
-          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav style={{
-          display: 'none',
-          alignItems: 'center',
-          gap: '32px',
-        }} className="desktop-nav">
-          <a href="#services" style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }}>
+        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a
+            href="#services"
+            className="text-slate-600 hover:text-slate-900 transition-colors"
+          >
             Services
           </a>
-          <a href="#case-studies" style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }}>
-            Case Studies
+          <a
+            href="#process"
+            className="text-slate-600 hover:text-slate-900 transition-colors"
+          >
+            Process
           </a>
-          <a href="#calculator" style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }}>
-            Growth Calculator
-          </a>
-          <a href="#creators" style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 500, transition: 'color 0.2s' }}>
-            Creator Network
+          <a
+            href="#contact"
+            className="text-slate-600 hover:text-slate-900 transition-colors"
+          >
+            Contact
           </a>
         </nav>
 
-        {/* Action Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <a href="#contact" className="btn-primary" id="nav-cta-btn" style={{
-            padding: '10px 20px',
-            fontSize: '14px',
-          }}>
-            Get In Touch
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-
-          {/* Mobile Hamburger Button */}
-          <button
-            id="mobile-menu-toggle"
-            aria-label="Toggle navigation menu"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#f8fafc',
-              cursor: 'pointer',
-              display: 'flex',
-              padding: '6px',
-            }}
-            className="mobile-hamburger"
+        {/* Header Action CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          <a
+            href="https://calendly.com/clickminemedia/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={openCalendly}
+            id="nav-cta-btn"
+            className="relative group overflow-hidden rounded-full p-[1px] focus:outline-none cursor-pointer"
           >
-            {mobileMenuOpen ? (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="4" y1="6" x2="20" y2="6"></line>
-                <line x1="4" y1="12" x2="20" y2="12"></line>
-                <line x1="4" y1="18" x2="20" y2="18"></line>
-              </svg>
-            )}
-          </button>
+            <span className="absolute inset-0 bg-gradient-to-r from-[#FF751F] via-[#FF4B43] to-[#E50069] transition-all duration-300 group-hover:scale-105" />
+            <span className="relative flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-sm font-semibold text-slate-900 transition-all duration-300 group-hover:bg-slate-50">
+              Let&apos;s Talk
+              <ArrowUpRight className="w-4 h-4 text-[#FF4B43] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </span>
+          </a>
         </div>
+
+        {/* Mobile Hamburger Button */}
+        <button
+          id="mobile-menu-toggle"
+          aria-label="Toggle navigation menu"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 text-slate-700 hover:text-slate-900 transition-colors"
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div style={{
-          backgroundColor: '#0d111a',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          padding: '20px 24px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-        }}>
+        <div className="md:hidden bg-white/95 backdrop-blur-2xl border-b border-slate-200 shadow-xl px-6 py-6 flex flex-col gap-5 animate-fadeIn">
           <a
             href="#services"
             onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#f8fafc', fontSize: '16px', fontWeight: 500 }}
+            className="text-base font-semibold text-slate-800 hover:text-[#FF751F] transition-colors"
           >
             Services
           </a>
           <a
-            href="#case-studies"
+            href="#process"
             onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#f8fafc', fontSize: '16px', fontWeight: 500 }}
+            className="text-base font-semibold text-slate-800 hover:text-[#FF751F] transition-colors"
           >
-            Case Studies
+            Process
           </a>
           <a
-            href="#calculator"
+            href="#contact"
             onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#f8fafc', fontSize: '16px', fontWeight: 500 }}
+            className="text-base font-semibold text-slate-800 hover:text-[#FF751F] transition-colors"
           >
-            Growth Calculator
+            Contact
           </a>
-          <a
-            href="#creators"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ color: '#f8fafc', fontSize: '16px', fontWeight: 500 }}
-          >
-            Creator Network
-          </a>
+          <div className="pt-2">
+            <a
+              href="https://calendly.com/clickminemedia/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                setMobileMenuOpen(false);
+                openCalendly(e);
+              }}
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-gradient-to-r from-[#FF751F] via-[#FF4B43] to-[#E50069] text-white font-semibold text-center shadow-lg shadow-orange-500/20 cursor-pointer"
+            >
+              Let&apos;s Talk
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       )}
-
-      <style jsx>{`
-        @media (min-width: 769px) {
-          .desktop-nav {
-            display: flex !important;
-          }
-          .mobile-hamburger {
-            display: none !important;
-          }
-        }
-      `}</style>
     </header>
   );
 }

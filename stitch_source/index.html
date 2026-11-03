@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary-fixed": "#e3e3dd", "primary-container": "#1a1c19", "background": "#fafaf5", "tertiary": "#000000", "on-error-container": "#93000a", "surface-dim": "#dadad5", "secondary-fixed": "#c6f26a", "error-container": "#ffdad6", "surface-container-low": "#f4f4ef", "tertiary-fixed-dim": "#c6c7bd", "secondary-fixed-dim": "#abd551", "surface-container-high": "#e8e8e4", "on-error": "#ffffff", "on-secondary-container": "#506e00", "on-tertiary-container": "#83857b", "on-secondary-fixed-variant": "#374e00", "outline-variant": "#c6c7c1", "surface-container-highest": "#e2e3de", "on-surface": "#1a1c19", "surface-tint": "#5d5f5b", "surface-bright": "#fafaf5", "outline": "#757872", "secondary": "#4b6700", "on-primary": "#ffffff", "on-secondary-fixed": "#141f00", "tertiary-fixed": "#e2e3d8", "inverse-on-surface": "#f1f1ec", "on-tertiary": "#ffffff", "inverse-primary": "#c6c7c2", "on-primary-container": "#838480", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "primary": "#000000", "on-tertiary-fixed-variant": "#454840", "on-primary-fixed": "#1a1c19", "on-primary-fixed-variant": "#464743", "error": "#ba1a1a", "surface": "#fafaf5", "on-surface-variant": "#454843", "surface-variant": "#e2e3de", "surface-container": "#eeeee9", "primary-fixed-dim": "#c6c7c2", "secondary-container": "#c6f26a", "inverse-surface": "#2f312e", "tertiary-container": "#1a1c16", "on-tertiary-fixed": "#1a1c16", "on-background": "#1a1c19" }, borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, spacing: { "margin-mobile": "1.25rem", "space-md": "1rem", "gutter-mobile": "1rem", "space-sm": "0.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "space-xs": "0.25rem", "margin": "3rem", "space-lg": "1.5rem" }, fontFamily: { "display-xl-mobile": ["Space Grotesk"], "body-md": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"], "headline-lg": ["Space Grotesk"], "display-xl": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "display-lg": ["Space Grotesk"], "headline-lg-mobile": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "display-lg-mobile": ["Space Grotesk"], "label-sm": ["Inter"], "label-md": ["Inter"] }, fontSize: { "display-xl-mobile": ["44px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }], "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-lg": ["40px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "display-xl": ["72px", { "lineHeight": "76px", "letterSpacing": "-0.04em", "fontWeight": "700" }], "headline-sm": ["20px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "600" }], "display-lg": ["56px", { "lineHeight": "60px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-lg-mobile": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-md": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-lg-mobile": ["36px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fafaf5;}body{overscroll-behavior:none;-webkit-font-smoothing:antialiased;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Click Mine Media Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Um9UXCgvtFUFnncbn5a9uQBAk5zQR969Dmvo-577xGzHihf0bKk0k82T0JimEZ5D5gUMkC_88H__sj-NWQGy9CLcImA31JeVo7y-erzc8vJSMEcs68YAUbLru8Yc49IDpGqR25RpTe_tV0_nxdG36VzQFcrraOuxhV4TjNamq67SHsQiQbeTOhMn1brJtuzBvhMYOkfiThW4bWPLddXfZH8jkymBHK0Ucr7fx4tek75EZpwwhAbeTPvhA"/><div class="flex flex-col truncate"><span class="font-headline-sm text-headline-sm font-bold tracking-tight text-on-surface truncate leading-none">Click Mine Media</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline truncate mt-space-xs">Home</span></div></div><div class="flex items-center gap-space-xs shrink-0"><a class="h-9 px-space-sm bg-secondary-container text-on-surface font-label-md text-label-md uppercase tracking-wider rounded-lg flex items-center justify-center font-bold hover:bg-primary hover:text-secondary-container transition-colors" data-path="contact" href="#">Talk Growth</a><button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center text-on-surface hover:text-primary transition-colors" onclick="const m=document.getElementById('mobile-menu');m.classList.toggle('hidden');"><span class="material-symbols-outlined text-[24px]">menu</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><div class="hidden fixed inset-0 z-40 bg-surface flex flex-col pt-24 px-gutter-mobile pb-28 overflow-y-auto" id="mobile-menu"><div class="flex flex-col gap-space-md"><span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Directory</span><nav class="flex flex-col gap-space-sm" data-active-classes="bg-surface-container-high text-on-surface font-semibold"><a aria-current="page" class="p-space-sm transition-colors bg-surface-container-high text-on-surface font-semibold" data-path="home" href="#">Home</a><a class="p-space-sm font-headline-md text-headline-md text-on-surface hover:text-secondary transition-colors" data-path="services" href="#">Services</a><a class="p-space-sm font-headline-md text-headline-md text-on-surface hover:text-secondary transition-colors" data-path="our-work" href="#">Our Work</a><a class="p-space-sm font-headline-md text-headline-md text-on-surface hover:text-secondary transition-colors" data-path="about" href="#">About</a><a class="p-space-sm font-headline-md text-headline-md text-on-surface hover:text-secondary transition-colors" data-path="contact" href="#">Contact</a></nav><div class="mt-space-lg pt-space-md flex flex-col gap-space-sm"><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Click Mine Media is a digital marketing and creative partner helping businesses communicate clearly, strengthen their online presence and pursue growth through strategy, content and execution.</p><a class="h-12 w-full bg-secondary-container text-on-surface font-label-md text-label-md uppercase tracking-wider rounded-lg flex items-center justify-center font-bold" data-path="contact" href="#">Let's Talk Growth</a></div></div></div><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full text-on-surface">
+<!-- ========================================== -->
+<!-- 1. HERO SECTION                            -->
+<!-- ========================================== -->
+<section class="flex flex-col px-gutter-mobile pt-6 pb-12">
+<!-- Eyebrow Tag -->
+<div class="flex items-center gap-2 mb-3">
+<span class="w-2 h-2 rounded-none bg-secondary-container inline-block"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-semibold">
+        Creative Thinking. Strategic Execution.
+      </span>
+</div>
+<!-- Editorial Lead Headline -->
+<h1 class="font-display-xl-mobile text-display-xl-mobile text-primary tracking-tight mb-4">
+      Make Your Brand Impossible to Ignore.
+    </h1>
+<!-- Core Value Statement -->
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">
+      Click Mine Media helps ambitious businesses turn attention into action through smart digital marketing, standout creative, and strategies built around real business goals.
+    </p>
+<!-- CTAs: High Contrast, Tactile, Pure Rectangular -->
+<div class="flex flex-col gap-3 mb-6">
+<a class="w-full py-3.5 px-4 bg-secondary-container text-on-surface font-label-md text-label-md uppercase tracking-wider font-bold text-center rounded-lg shadow-sm hover:bg-primary hover:text-secondary-container transition-colors" href="#contact-section">
+        Let's Talk Growth
+      </a>
+<a class="w-full py-3.5 px-4 bg-surface-container-lowest text-primary font-label-md text-label-md uppercase tracking-wider font-semibold text-center rounded-lg shadow-sm hover:bg-surface-container-high transition-colors" href="#services-section">
+        Explore Our Services
+      </a>
+</div>
+<!-- Microcopy / Ground Rules -->
+<div class="bg-surface-container-low p-3 rounded-lg mb-8">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-outline text-center">
+        Strategy first • Creative that connects • Performance you can measure
+      </p>
+</div>
+<!-- Architectural Monochromatic Hero Card (No Fake Humans) -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">INDEX [001]</span>
+<span class="text-outline text-label-sm">/</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">GROWTH ARCHITECTURE</span>
+</div>
+<span class="inline-flex items-center px-1.5 py-0.5 bg-primary text-secondary-container font-label-sm text-label-sm uppercase font-bold rounded">
+          LIVE METRICS
+        </span>
+</div>
+<!-- Structural Wireframe Chart Graphic -->
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col gap-3">
+<div class="flex justify-between items-baseline">
+<span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">4.82×</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">+318% Conversion Lift</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-none overflow-hidden flex">
+<div class="bg-primary h-full w-[38%]"></div>
+<div class="bg-secondary-container h-full w-[42%]"></div>
+<div class="bg-outline h-full w-[20%]"></div>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-1 text-center">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">Qualified Vol</span>
+<span class="font-label-md text-label-md font-bold text-primary">84.2k</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">Click-to-Lead</span>
+<span class="font-label-md text-label-md font-bold text-primary">9.4%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">Blended CAC</span>
+<span class="font-label-md text-label-md font-bold text-primary">-41%</span>
+</div>
+</div>
+</div>
+<!-- Blueprint Metadata Tiers -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex justify-between items-center text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Core Funnel Structure</span>
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase">Zero-Friction</span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Primary Attribution</span>
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase">Multi-Touch Dynamic</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 2. SERVICES SECTION                        -->
+<!-- ========================================== -->
+<section class="flex flex-col px-gutter-mobile py-10 bg-surface-container-low" id="services-section">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2.5 h-2.5 bg-secondary-container rounded-none"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-semibold">
+        What We Do
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-3">
+      Everything Your Brand Needs to Grow Online.
+    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
+      We connect strategy, content, creative, and campaigns to help your brand reach the right audience and create a clearer path from discovery to enquiry.
+    </p>
+<!-- 8 Clean Typography Service Cards -->
+<div class="flex flex-col gap-3">
+<!-- 01 -->
+<article class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-mono font-bold tracking-widest">01</span>
+<span class="material-symbols-outlined text-[18px] text-outline">trending_up</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Digital Marketing Strategy</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Build a practical marketing roadmap around your goals, audience and budget.</p>
+</article>
+<!-- 02 -->
+<article class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-mono font-bold tracking-widest">02</span>
+<span class="material-symbols-outlined text-[18px] text-outline">alternate_email</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Social Media Marketing</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Create consistent, platform-specific content that connects with your audience.</p>
+</article>
+<!-- 03 -->
+<article class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-mono font-bold tracking-widest">03</span>
+<span class="material-symbols-outlined text-[18px] text-outline">search_check</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Search Engine Optimisation (SEO)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Improve your website's discoverability through useful content and technical optimisation.</p>
+</article>
+<!-- 04 -->
+<article class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-mono font-bold tracking-widest">04</span>
+<span class="material-symbols-outlined text-[18px] text-outline">ads_click</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Performance Marketing &amp; Paid Ads</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Plan and optimise advertising campaigns with attention to audience quality and cost efficiency.</p>
+</article>
+<!-- 05 -->
+<article class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-mono font-bold tracking-widest">05</span>
+<span class="material-symbols-outlined text-[18px] text-outline">edit_note</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Content Creation &amp; Copywriting</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Turn your ideas and expertise into clear, compelling digital content.</p>
+</article>
+<!-- 06 -->
+<article class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-mono font-bold tracking-widest">06</span>
+<span class="material-symbols-outlined text-[18px] text-outline">palette</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Branding &amp; Creative Design</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Build a recognisable visual identity across your digital touchpoints.</p>
+</article>
+<!-- 07 -->
+<article class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-mono font-bold tracking-widest">07</span>
+<span class="material-symbols-outlined text-[18px] text-outline">devices</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Website Design &amp; Landing Pages</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Create responsive websites that communicate your offer clearly and encourage enquiries.</p>
+</article>
+<!-- 08 -->
+<article class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-mono font-bold tracking-widest">08</span>
+<span class="material-symbols-outlined text-[18px] text-outline">videocam</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Video &amp; Short-Form Content</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Develop engaging video concepts and short-form content for relevant platforms.</p>
+</article>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 3. THE CMM APPROACH (Near-Black Section)   -->
+<!-- ========================================== -->
+<section class="flex flex-col px-gutter-mobile py-12 bg-primary-container text-surface">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary-container font-semibold">
+        The CMM Approach
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary tracking-tight mb-4">
+      Less Guesswork. More Purpose Behind Every Move.
+    </h2>
+<p class="font-body-md text-body-md text-surface-dim mb-8 leading-relaxed">
+      Good marketing is not about posting more or spending more on ads. It is about understanding your audience, communicating a compelling offer, and choosing the right channels.
+    </p>
+<!-- 4 Principles Matrix -->
+<div class="flex flex-col gap-4">
+<!-- 01 -->
+<div class="bg-inverse-surface p-5 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-mono text-secondary-container font-bold">01</span>
+<span class="font-label-sm text-label-sm text-outline-variant uppercase tracking-wider">Foundation</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary font-bold">Strategy before activity</h3>
+<p class="font-body-sm text-body-sm text-surface-container-highest">Start with business objectives and audience needs.</p>
+</div>
+<!-- 02 -->
+<div class="bg-inverse-surface p-5 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-mono text-secondary-container font-bold">02</span>
+<span class="font-label-sm text-label-sm text-outline-variant uppercase tracking-wider">Intent</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary font-bold">Creative with a purpose</h3>
+<p class="font-body-sm text-body-sm text-surface-container-highest">Make every asset communicate something meaningful.</p>
+</div>
+<!-- 03 -->
+<div class="bg-inverse-surface p-5 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-mono text-secondary-container font-bold">03</span>
+<span class="font-label-sm text-label-sm text-outline-variant uppercase tracking-wider">Proof</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary font-bold">Decisions informed by data</h3>
+<p class="font-body-sm text-body-sm text-surface-container-highest">Use available performance data to guide optimisation.</p>
+</div>
+<!-- 04 -->
+<div class="bg-inverse-surface p-5 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-mono text-secondary-container font-bold">04</span>
+<span class="font-label-sm text-label-sm text-outline-variant uppercase tracking-wider">Integrity</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary font-bold">Clear communication</h3>
+<p class="font-body-sm text-body-sm text-surface-container-highest">Keep priorities, progress and next steps transparent.</p>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 4. HOW WE WORK (Vertical Timeline)         -->
+<!-- ========================================== -->
+<section class="flex flex-col px-gutter-mobile py-12 bg-surface">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2.5 h-2.5 bg-primary"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-semibold">
+        Our Process
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-8">
+      A Clear Process from First Conversation to Optimisation.
+    </h2>
+<div class="flex flex-col gap-4">
+<!-- Step 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex gap-4 items-start">
+<div class="w-8 h-8 rounded-lg bg-primary text-secondary-container font-label-md text-label-md font-bold flex items-center justify-center shrink-0">
+          1
+        </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline mb-0.5">Phase One</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Discover</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Understand the business, audience, existing marketing, and target performance goals.
+          </p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex gap-4 items-start">
+<div class="w-8 h-8 rounded-lg bg-primary text-secondary-container font-label-md text-label-md font-bold flex items-center justify-center shrink-0">
+          2
+        </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline mb-0.5">Phase Two</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Plan</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Identify priorities, suitable channels, content direction, and concrete measurement framework.
+          </p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex gap-4 items-start">
+<div class="w-8 h-8 rounded-lg bg-primary text-secondary-container font-label-md text-label-md font-bold flex items-center justify-center shrink-0">
+          3
+        </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline mb-0.5">Phase Three</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Create &amp; Launch</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Develop the agreed creative, content, website updates, or multi-channel paid campaigns.
+          </p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-sm flex gap-4 items-start">
+<div class="w-8 h-8 rounded-lg bg-secondary-container text-primary font-label-md text-label-md font-bold flex items-center justify-center shrink-0">
+          4
+        </div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline mb-0.5">Phase Four</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Measure &amp; Improve</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Review available performance data regularly and systematically refine the approach.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 5. OUR WORK (Concept Projects)             -->
+<!-- ========================================== -->
+<section class="flex flex-col px-gutter-mobile py-10 bg-surface-container-low">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2.5 h-2.5 bg-secondary-container rounded-none"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-semibold">
+        Selected Work
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-3">
+      Ideas in Action.
+    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
+      Explore how strategy, creative and execution come together to solve real business challenges.
+    </p>
+<div class="flex flex-col gap-6">
+<!-- Case Study 1 -->
+<article class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm flex flex-col">
+<!-- Visual Asset -->
+<div class="relative w-full h-48 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Minimalist architectural lifestyle brand editorial layout, high-contrast monochrome design with warm off-white tones, clean typography, studio pottery objects, and subtle electric lime typography accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-8ZHp7CA6zkzutVPHu7bwNsL9d7Q506OBkRifYWOUkrjVPIIKSqCygcKtR8FLGjpiLv4qIdSsQSTHOvnGfKnRAfpV2xQHFgZy8vkAd1kjAjKcgAFhA7cl5YJr8Nyjd5mNLtynh02Zs3z2vAe-ZslAsOyqu3u4JsQ4fZYEskVz3Cu7ohSpjin33HadEBJp9upiFFVLk4n0m1NrgvQ-bFWy3_VkDT3RYhCLF8f07cvnFOKiVDO-YjNW"/>
+<div class="absolute top-3 left-3 bg-primary text-secondary-container px-2 py-1 font-label-sm text-label-sm font-bold uppercase rounded">
+            Concept Project
+          </div>
+</div>
+<div class="p-5 flex flex-col gap-4">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Lifestyle / DTC Retail</span>
+<h3 class="font-headline-md text-headline-md text-primary font-bold mt-0.5">KURA Studio</h3>
+</div>
+<div class="flex flex-col gap-3">
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary mb-1">Challenge</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Reframing an artisanal lifestyle label for a Gen Z demographic without eroding architectural prestige.
+              </p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary mb-1">Approach</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Minimalist multi-channel brand campaign, high-contrast visual editorial, and conversion-optimised drop pages.
+              </p>
+</div>
+</div>
+<div class="pt-2">
+<span class="font-label-sm text-label-sm uppercase text-outline tracking-wider block mb-1.5 font-semibold">Deliverables</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-1 bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded font-medium">Creative Direction</span>
+<span class="px-2 py-1 bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded font-medium">Short-Form Content</span>
+<span class="px-2 py-1 bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded font-medium">Paid Social Architecture</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Case Study 2 -->
+<article class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm flex flex-col">
+<!-- Visual Asset -->
+<div class="relative w-full h-48 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Technical urban mobility dashboard interface with high-contrast UI components, data visualization charts, clean monospace typography, stark black and white aesthetic with vibrant lime data markers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz1MJVOAZhwdbvfscZ5XLc24DfmYbF07vGYx1RHJA-SUaahak1D-woOJDGquorMXWtjZdEKPU7oivJFHMBLPXWG79fwnGCZqko0af6C6HeZqdoCkmd49WbAZyazs9Z8mrGMAahOQSmjKsxVdnn62vkif8JAbPVQgbla0LwK9lWVSjgFfmtPSLqhPMi-htgHZTPWEvV6nLP2CmIozFRnlC9P6KVxR3KtTC8i5dtH2RCmYvoV44OTnQn"/>
+<div class="absolute top-3 left-3 bg-primary text-secondary-container px-2 py-1 font-label-sm text-label-sm font-bold uppercase rounded">
+            Concept Project
+          </div>
+</div>
+<div class="p-5 flex flex-col gap-4">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Mobility &amp; Clean Tech</span>
+<h3 class="font-headline-md text-headline-md text-primary font-bold mt-0.5">Apex Mobility</h3>
+</div>
+<div class="flex flex-col gap-3">
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary mb-1">Challenge</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Establishing organic search authority and organic engagement for an urban e-mobility newcomer.
+              </p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary mb-1">Approach</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Full-funnel organic search sprint, technical content hub, and performance-led creative variations.
+              </p>
+</div>
+</div>
+<div class="pt-2">
+<span class="font-label-sm text-label-sm uppercase text-outline tracking-wider block mb-1.5 font-semibold">Deliverables</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-1 bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded font-medium">SEO Roadmap</span>
+<span class="px-2 py-1 bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded font-medium">Editorial Content Hub</span>
+<span class="px-2 py-1 bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded font-medium">Conversion Optimisation</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-8">
+<a class="w-full py-3.5 px-4 bg-surface-container-lowest text-primary font-label-md text-label-md uppercase tracking-wider font-semibold text-center rounded-lg shadow-sm block hover:bg-surface-container-high transition-colors" data-path="our-work" href="#">
+        Explore Our Work
+      </a>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 6. WHO WE HELP                             -->
+<!-- ========================================== -->
+<section class="flex flex-col px-gutter-mobile py-12 bg-surface">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2.5 h-2.5 bg-primary"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-semibold">
+        Client Profiles
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-3">
+      Built for Businesses Ready to Move Forward.
+    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
+      Every business is at a different stage. We shape the marketing approach around your audience, priorities, and available resources.
+    </p>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col justify-between h-36">
+<span class="font-label-sm text-label-sm font-mono text-outline font-bold">SEGMENT // 01</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary leading-tight">Startups &amp; New Businesses</h3>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col justify-between h-36">
+<span class="font-label-sm text-label-sm font-mono text-outline font-bold">SEGMENT // 02</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary leading-tight">Small &amp; Growing Businesses</h3>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col justify-between h-36">
+<span class="font-label-sm text-label-sm font-mono text-outline font-bold">SEGMENT // 03</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary leading-tight">Service-Based Businesses</h3>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col justify-between h-36">
+<span class="font-label-sm text-label-sm font-mono text-outline font-bold">SEGMENT // 04</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary leading-tight">E-commerce &amp; Consumer Brands</h3>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 7. FAQ ACCORDION SECTION                   -->
+<!-- ========================================== -->
+<section class="flex flex-col px-gutter-mobile py-12 bg-surface-container-low">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2.5 h-2.5 bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-semibold">
+        Questions Answered
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mb-8">
+      Frequently Asked Questions.
+    </h2>
+<div class="flex flex-col gap-3" id="faq-accordion">
+<!-- Item 1 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm">
+<button class="w-full p-4 flex items-center justify-between text-left font-headline-sm text-headline-sm font-semibold text-primary" onclick="toggleFaq(this)">
+<span>What does Click Mine Media do?</span>
+<span class="material-symbols-outlined text-[20px] transition-transform duration-200">expand_more</span>
+</button>
+<div class="px-4 pb-4 hidden text-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          CMM is a digital marketing and creative agency. We deliver end-to-end strategy, paid advertising, SEO, social content, branding, and conversion-focused web design.
+        </div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm">
+<button class="w-full p-4 flex items-center justify-between text-left font-headline-sm text-headline-sm font-semibold text-primary" onclick="toggleFaq(this)">
+<span>How do you decide which marketing services my business needs?</span>
+<span class="material-symbols-outlined text-[20px] transition-transform duration-200">expand_more</span>
+</button>
+<div class="px-4 pb-4 hidden text-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          We evaluate your current commercial goals, audience dynamics, and existing baseline before proposing tailored channels rather than selling fixed service packages.
+        </div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm">
+<button class="w-full p-4 flex items-center justify-between text-left font-headline-sm text-headline-sm font-semibold text-primary" onclick="toggleFaq(this)">
+<span>How soon can I expect results from digital marketing?</span>
+<span class="material-symbols-outlined text-[20px] transition-transform duration-200">expand_more</span>
+</button>
+<div class="px-4 pb-4 hidden text-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Timelines vary by channel and market maturity. Paid campaigns often yield insight within weeks, while organic search, brand positioning, and content compounds steadily over 3 to 6 months. We never make unverified guarantees.
+        </div>
+</div>
+<!-- Item 4 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm">
+<button class="w-full p-4 flex items-center justify-between text-left font-headline-sm text-headline-sm font-semibold text-primary" onclick="toggleFaq(this)">
+<span>Do you work with small businesses and startups?</span>
+<span class="material-symbols-outlined text-[20px] transition-transform duration-200">expand_more</span>
+</button>
+<div class="px-4 pb-4 hidden text-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Yes. We work closely with early-stage founders and growing businesses, designing scalable roadmaps adapted to realistic budgets and milestones.
+        </div>
+</div>
+<!-- Item 5 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm">
+<button class="w-full p-4 flex items-center justify-between text-left font-headline-sm text-headline-sm font-semibold text-primary" onclick="toggleFaq(this)">
+<span>How do we get started with CMM?</span>
+<span class="material-symbols-outlined text-[20px] transition-transform duration-200">expand_more</span>
+</button>
+<div class="px-4 pb-4 hidden text-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Complete our enquiry form below or email us directly. We will schedule a focused discovery discussion to review your goals and next steps.
+        </div>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 8. FINAL CONTACT SECTION (Near-Black)      -->
+<!-- ========================================== -->
+<section class="flex flex-col px-gutter-mobile py-12 bg-primary-container text-surface" id="contact-section">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary-container font-semibold">
+        Your Next Move Starts Here
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary tracking-tight mb-4">
+      Let's Turn Your Next Big Idea into a Clear Plan.
+    </h2>
+<p class="font-body-md text-body-md text-surface-dim mb-8 leading-relaxed">
+      Tell us what you want to achieve. We'll discuss your goals, explore the opportunities and identify practical next steps for your brand's digital presence.
+    </p>
+<!-- High-Performance Form -->
+<form class="flex flex-col gap-4" onsubmit="event.preventDefault(); alert('Thank you. Your message has been received.');">
+<!-- Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md uppercase tracking-wider text-surface-dim font-medium">Your Name *</label>
+<input class="w-full bg-inverse-surface text-on-primary px-3.5 py-3 rounded-lg font-body-md focus:outline-none focus:bg-tertiary-container placeholder-outline" placeholder="Alex Turner" required="" type="text"/>
+</div>
+<!-- Work Email -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md uppercase tracking-wider text-surface-dim font-medium">Work Email *</label>
+<input class="w-full bg-inverse-surface text-on-primary px-3.5 py-3 rounded-lg font-body-md focus:outline-none focus:bg-tertiary-container placeholder-outline" placeholder="alex@company.com" required="" type="email"/>
+</div>
+<!-- Company Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md uppercase tracking-wider text-surface-dim font-medium">Company or Brand Name *</label>
+<input class="w-full bg-inverse-surface text-on-primary px-3.5 py-3 rounded-lg font-body-md focus:outline-none focus:bg-tertiary-container placeholder-outline" placeholder="Acme Studios" required="" type="text"/>
+</div>
+<!-- Website or Social Profile -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md uppercase tracking-wider text-surface-dim font-medium">Website or Social Profile (Optional)</label>
+<input class="w-full bg-inverse-surface text-on-primary px-3.5 py-3 rounded-lg font-body-md focus:outline-none focus:bg-tertiary-container placeholder-outline" placeholder="https://" type="text"/>
+</div>
+<!-- Services Multi-Select Options -->
+<div class="flex flex-col gap-2 pt-2">
+<label class="font-label-md text-label-md uppercase tracking-wider text-surface-dim font-medium">Services of Interest</label>
+<div class="grid grid-cols-1 gap-2">
+<label class="flex items-center gap-3 bg-inverse-surface p-3 rounded-lg cursor-pointer">
+<input class="w-4 h-4 rounded-none accent-secondary-container" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-primary">Strategy &amp; Consulting</span>
+</label>
+<label class="flex items-center gap-3 bg-inverse-surface p-3 rounded-lg cursor-pointer">
+<input class="w-4 h-4 rounded-none accent-secondary-container" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-primary">Performance Marketing &amp; Paid Ads</span>
+</label>
+<label class="flex items-center gap-3 bg-inverse-surface p-3 rounded-lg cursor-pointer">
+<input class="w-4 h-4 rounded-none accent-secondary-container" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-primary">SEO &amp; Content Engine</span>
+</label>
+<label class="flex items-center gap-3 bg-inverse-surface p-3 rounded-lg cursor-pointer">
+<input class="w-4 h-4 rounded-none accent-secondary-container" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-primary">Brand Identity &amp; Creative Web</span>
+</label>
+</div>
+</div>
+<!-- Message -->
+<div class="flex flex-col gap-1.5 pt-2">
+<label class="font-label-md text-label-md uppercase tracking-wider text-surface-dim font-medium">Briefly Describe Your Goals *</label>
+<textarea class="w-full bg-inverse-surface text-on-primary p-3.5 rounded-lg font-body-md focus:outline-none focus:bg-tertiary-container placeholder-outline" placeholder="What are your current commercial challenges and what does success look like?" required="" rows="4"></textarea>
+</div>
+<!-- Privacy Consent -->
+<label class="flex items-start gap-3 pt-2 cursor-pointer">
+<input class="w-4 h-4 mt-0.5 rounded-none accent-secondary-container shrink-0" required="" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-surface-dim">
+          I agree to the processing of my details as described in the Privacy Policy.
+        </span>
+</label>
+<!-- Submit Button -->
+<div class="pt-3">
+<button class="w-full py-4 px-4 bg-secondary-container text-on-surface font-label-md text-label-md uppercase tracking-wider font-bold text-center rounded-lg shadow-sm hover:bg-secondary-fixed-dim transition-colors" type="submit">
+          Start a Conversation
+        </button>
+</div>
+<!-- Direct Note -->
+<div class="flex items-center justify-center gap-2 pt-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm text-outline-variant uppercase tracking-wider">
+          Inquiries reviewed within one business day.
+        </span>
+</div>
+</form>
+</section>
+</div>
+<script>
+  function toggleFaq(button) {
+    const content = button.nextElementSibling;
+    const icon = button.querySelector('.material-symbols-outlined');
+    const isHidden = content.classList.contains('hidden');
+    
+    // Close other FAQ items
+    document.querySelectorAll('#faq-accordion > div > div').forEach(el => {
+      el.classList.add('hidden');
+    });
+    document.querySelectorAll('#faq-accordion button .material-symbols-outlined').forEach(i => {
+      i.style.transform = 'rotate(0deg)';
+    });
+
+    if (isHidden) {
+      content.classList.remove('hidden');
+      icon.style.transform = 'rotate(180deg)';
+    }
+  }
+</script><footer class="w-full bg-surface-container-low px-gutter-mobile py-space-xl mt-space-xl flex flex-col gap-space-lg"><div class="flex flex-col gap-space-xs"><span class="font-headline-sm text-headline-sm font-bold uppercase tracking-tight text-on-surface">Click Mine Media</span><p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Click Mine Media is a digital marketing and creative partner helping businesses communicate clearly, strengthen their online presence and pursue growth through strategy, content and execution.</p></div><div class="flex flex-wrap gap-x-space-md gap-y-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant"><a class="hover:text-primary transition-colors" data-path="home" href="#">Home</a><a class="hover:text-primary transition-colors" data-path="services" href="#">Services</a><a class="hover:text-primary transition-colors" data-path="our-work" href="#">Our Work</a><a class="hover:text-primary transition-colors" data-path="about" href="#">About</a><a class="hover:text-primary transition-colors" data-path="contact" href="#">Contact</a></div><div class="flex flex-wrap gap-x-space-md gap-y-space-xs font-label-sm text-label-sm text-outline"><a class="hover:text-on-surface transition-colors" data-path="privacy-policy" href="#">Privacy Policy</a><a class="hover:text-on-surface transition-colors" data-path="terms-conditions" href="#">Terms &amp; Conditions</a></div><div class="font-label-sm text-label-sm text-outline"><span>© 2025 Click Mine Media. All rights reserved.</span></div></footer></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-1px_8px_rgba(0,0,0,0.04)]" data-active-classes="text-on-surface font-bold"><div class="flex items-center justify-around h-16 px-gutter-mobile"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] transition-colors text-on-surface font-bold" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Home</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="services" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Services</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="our-work" href="#"><span class="material-symbols-outlined text-[20px]">auto_awesome_motion</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Work</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="about" href="#"><span class="material-symbols-outlined text-[20px]">info</span><span class="font-label-sm text-label-sm uppercase tracking-wide">About</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="contact" href="#"><span class="material-symbols-outlined text-[20px]">chat_bubble</span><span class="font-label-sm text-label-sm uppercase tracking-wide">Contact</span></a></div></nav></body></html>

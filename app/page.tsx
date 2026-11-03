@@ -1,657 +1,591 @@
 'use client';
 
 import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import TechText from './components/TechText';
+import {
+  ArrowUpRight,
+  TrendingUp,
+  Search,
+  Palette,
+  Layout,
+  Video,
+  Target,
+  Zap,
+  Check,
+  Send,
+} from 'lucide-react';
 
-export default function HomePage() {
-  // State for interactive Growth Estimator
-  const [budget, setBudget] = useState<number>(10000);
-  const [inquirySubmitted, setInquirySubmitted] = useState<boolean>(false);
-  const [formData, setFormData] = useState({
+export default function Home() {
+  const openCalendly = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    if (typeof window !== 'undefined' && (window as any).Calendly) {
+      (window as any).Calendly.initPopupWidget({
+        url: 'https://calendly.com/clickminemedia/30min',
+      });
+    } else {
+      window.open('https://calendly.com/clickminemedia/30min', '_blank');
+    }
+  };
+
+  // Form submission state
+  const [formState, setFormState] = useState({
     name: '',
     email: '',
-    brand: '',
-    service: 'Short-Form Production',
+    company: '',
+    website: '',
+    services: [] as string[],
+    goals: '',
+    consent: false,
   });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
-  // Calculate dynamic metrics based on budget
-  const estimatedViews = Math.round((budget / 1000) * 125000);
-  const estimatedCreators = Math.max(3, Math.round(budget / 2500));
-  const estimatedROAS = (4.2 + (budget > 15000 ? 0.6 : 0)).toFixed(1);
+  const toggleService = (service: string) => {
+    setFormState((prev) => ({
+      ...prev,
+      services: prev.services.includes(service)
+        ? prev.services.filter((s) => s !== service)
+        : [...prev.services, service],
+    }));
+  };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setInquirySubmitted(true);
+    if (!formState.name.trim() || !formState.email.trim() || !formState.company.trim()) {
+      setFormError('Please complete your name, work email, and company.');
+      return;
+    }
+    if (!formState.consent) {
+      setFormError('Please agree to share your details before submitting.');
+      return;
+    }
+    setFormError(null);
+    setFormSubmitted(true);
   };
 
+  const servicesList = [
+    {
+      id: 'performance',
+      title: 'Performance Marketing & Paid Ads',
+      summary:
+        'High-converting campaigns across Meta, Google, and TikTok. Engineered to acquire quality customers at scalable unit economics.',
+      icon: TrendingUp,
+      features: ['Meta Ads Management', 'Google Ads Strategy', 'Audience Segmentation', 'Landing Page Optimization'],
+    },
+    {
+      id: 'branding',
+      title: 'Branding & Creative Direction',
+      summary:
+        'Distinctive visual identity, campaign design systems, and creative assets that demand attention and build lasting brand equity.',
+      icon: Palette,
+      features: ['Visual Direction', 'Brand Design Systems', 'Campaign Creatives', 'High-Impact Asset Kits'],
+    },
+    {
+      id: 'web',
+      title: 'Websites & High-Converting UX',
+      summary:
+        'Fast, responsive digital experiences crafted to turn visitors into buyers with frictionless navigation and clear value propositions.',
+      icon: Layout,
+      features: ['Modern Conversion UX', 'Mobile-First Design', 'Speed Optimization', 'High-Converting Funnels'],
+    },
+    {
+      id: 'seo',
+      title: 'Search Engine Optimization',
+      summary:
+        'Sustainable organic search authority built on rigorous technical health, high-intent content, and smart on-page architecture.',
+      icon: Search,
+      features: ['Technical Health Audits', 'High-Intent Search Mapping', 'On-Page Architecture', 'Content Relevance'],
+    },
+    {
+      id: 'video',
+      title: 'Video & Short-Form Content',
+      summary:
+        'Dynamic short-form video and platform-native content with punchy hooks designed to capture modern attention spans.',
+      icon: Video,
+      features: ['Short-Form Video Concepts', 'Viral Hook Pacing', 'Scriptwriting', 'Multi-Platform Formats'],
+    },
+    {
+      id: 'strategy',
+      title: 'Digital Growth Strategy',
+      summary:
+        'A comprehensive, data-driven masterplan aligning your channels, creative messaging, and customer acquisition funnels.',
+      icon: Target,
+      features: ['Funnel Architecture', 'Competitor Benchmarking', 'Attribution Modeling', 'Growth Roadmaps'],
+    },
+  ];
+
+  const processSteps = [
+    {
+      step: '01',
+      title: 'Audit & Direction',
+      desc: 'We analyze your market, audience, and funnels to identify where your biggest revenue opportunities live.',
+    },
+    {
+      step: '02',
+      title: 'The Growth Blueprint',
+      desc: 'We map out a targeted plan specifying creative hooks, conversion funnels, and precise channel allocations.',
+    },
+    {
+      step: '03',
+      title: 'Build & Launch',
+      desc: 'We produce campaign assets, landing pages, and creatives with rapid velocity and publish them to market.',
+    },
+    {
+      step: '04',
+      title: 'Relentless Scale',
+      desc: 'We analyze real performance data daily, eliminating what underperforms and doubling down on what drives profit.',
+    },
+  ];
+
   return (
-    <main>
-      {/* HERO SECTION */}
-      <section className="section-padding" style={{ position: 'relative', overflow: 'hidden', paddingTop: '80px' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          {/* Badge */}
-          <div style={{ display: 'inline-flex', marginBottom: '24px' }}>
-            <div className="badge-glow" id="hero-badge">
-              <span className="pulse-dot"></span>
-              <span>Next-Gen Media & Creator Growth Agency</span>
+    <div className="min-h-screen bg-[#FAFAFC] text-slate-900 selection:bg-[#FF4B43] selection:text-white">
+      {/* Header and Navigation */}
+      <Navbar />
+
+      <main id="home">
+        {/* ========================================================================= */}
+        {/* Hero Section */}
+        {/* ========================================================================= */}
+        <section className="relative pt-28 sm:pt-36 pb-12 sm:pb-16 px-6 sm:px-8 overflow-hidden bg-grid-pattern">
+          {/* Ambient Brand Gradient Auroras */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] h-[450px] bg-gradient-to-tr from-[#FF751F]/15 via-[#FF4B43]/15 to-[#E50069]/15 blur-[130px] rounded-full pointer-events-none -z-10" />
+          <div className="absolute top-1/2 right-[-100px] w-96 h-96 bg-[#FF751F]/10 blur-[110px] rounded-full pointer-events-none -z-10" />
+
+          <div className="max-w-5xl mx-auto w-full text-center relative z-10 flex flex-col items-center">
+            {/* H1 SEO Headline */}
+            <h1 className="sr-only">Make Your Brand Impossible to Ignore.</h1>
+
+            {/* Interactive TechText Headline with Existing Brand Colors */}
+            <div
+              style={{ width: '100%', height: '340px', position: 'relative' }}
+              className="max-w-4xl mx-auto mb-4"
+            >
+              <TechText
+                text={"Make Your Brand\nImpossible to Ignore."}
+                fontWeight={900}
+                fontSize={120}
+                reveal="letter"
+                dashLength={4}
+                dashGap={2}
+                specks={15}
+                intro="none"
+                introDuration={2}
+                clickKick
+                guides={false}
+                fontFamily="Rubik"
+                letterSpacing={-0.03}
+                accentColor="#FF751F"
+                reach={200}
+                softness={0.7}
+                lineStyle="dashed"
+                strokeWidth={1.5}
+                speed={1}
+                bounce={0.4}
+                selection
+                labels
+                color="#0F172A"
+                align="center"
+                draggable
+                sweep
+              />
             </div>
-          </div>
 
-          {/* Main Heading */}
-          <h1 className="font-display" style={{
-            fontSize: 'clamp(2.5rem, 5.5vw, 4.25rem)',
-            fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: '-0.03em',
-            maxWidth: '900px',
-            margin: '0 auto 24px auto',
-          }}>
-            We Turn Digital Attention Into{' '}
-            <span className="text-gradient">Exponential Revenue</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p style={{
-            color: 'var(--text-secondary)',
-            fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
-            maxWidth: '680px',
-            margin: '0 auto 40px auto',
-            lineHeight: 1.6,
-          }}>
-            ClickMineMedia scales high-growth brands through viral short-form video production, 
-            algorithmic paid creative, and an exclusive network of top-tier creators.
-          </p>
-
-          {/* CTA Buttons */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '16px',
-            flexWrap: 'wrap',
-            marginBottom: '64px',
-          }}>
-            <a href="#calculator" className="btn-primary" id="hero-cta-primary">
-              Calculate Growth Potential
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-            <a href="#case-studies" className="btn-secondary" id="hero-cta-secondary">
-              View Proven Results
-            </a>
-          </div>
-
-          {/* Live Metrics Ticker Banner */}
-          <div className="glass-card" style={{
-            padding: '32px 24px',
-            maxWidth: '1000px',
-            margin: '0 auto',
-          }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '24px',
-              textAlign: 'center',
-            }}>
-              <div>
-                <div className="font-display text-gradient" style={{ fontSize: '36px', fontWeight: 700 }}>
-                  850M+
-                </div>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '14px', marginTop: '4px' }}>
-                  Organic Views Delivered
-                </div>
-              </div>
-
-              <div>
-                <div className="font-display text-gradient" style={{ fontSize: '36px', fontWeight: 700 }}>
-                  140+
-                </div>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '14px', marginTop: '4px' }}>
-                  Vetted Creator Partners
-                </div>
-              </div>
-
-              <div>
-                <div className="font-display text-gradient" style={{ fontSize: '36px', fontWeight: 700 }}>
-                  4.8x
-                </div>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '14px', marginTop: '4px' }}>
-                  Average Client ROAS
-                </div>
-              </div>
-
-              <div>
-                <div className="font-display text-gradient" style={{ fontSize: '36px', fontWeight: 700 }}>
-                  $42M+
-                </div>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '14px', marginTop: '4px' }}>
-                  Tracked Sales Generated
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICES SECTION */}
-      <section id="services" className="section-padding" style={{ backgroundColor: 'rgba(13, 17, 26, 0.4)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-            <div className="badge-glow" style={{ marginBottom: '16px' }}>
-              <span>Our Capabilities</span>
-            </div>
-            <h2 className="font-display" style={{ fontSize: '36px', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: '16px' }}>
-              Engineered for the Modern Attention Economy
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '16px' }}>
-              We eliminate traditional agency bloat and deploy rapid, data-backed creative systems designed to win on TikTok, Reels, and YouTube.
+            {/* Subheading */}
+            <p className="text-lg sm:text-2xl text-slate-600 max-w-2xl leading-relaxed font-normal mb-8">
+              We craft high-growth digital marketing, scroll-stopping creative, and performance engines that turn audience attention into explosive revenue.
             </p>
-          </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '24px',
-          }}>
-            {/* Service 1 */}
-            <article className="glass-card" id="service-short-form">
-              <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '12px',
-                background: 'rgba(0, 242, 254, 0.12)',
-                border: '1px solid rgba(0, 242, 254, 0.3)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-              }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="23 7 16 12 23 17 23 7" />
-                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-                </svg>
-              </div>
-              <h3 className="font-display" style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>
-                Viral Short-Form Production
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>
-                High-volume, retention-optimized video editing with algorithmic pacing, hypnotic sound design, and tested hooks.
-              </p>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: 'var(--text-highlight)' }}>
-                <li>✓ Daily TikTok & Reels output</li>
-                <li>✓ Retention curves analysis</li>
-                <li>✓ Full script-to-screen pipeline</li>
-              </ul>
-            </article>
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-10">
+              <a
+                href="https://calendly.com/clickminemedia/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={openCalendly}
+                id="hero-primary-cta"
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-[#FF751F] via-[#FF4B43] to-[#E50069] text-white font-bold text-base shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+              >
+                Let&apos;s Talk Growth
+                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+              <a
+                href="#services"
+                id="hero-secondary-cta"
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-800 font-semibold text-base shadow-sm hover:shadow transition-all flex items-center justify-center"
+              >
+                Explore Services
+              </a>
+            </div>
 
-            {/* Service 2 */}
-            <article className="glass-card" id="service-creator-management">
-              <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '12px',
-                background: 'rgba(79, 172, 254, 0.12)',
-                border: '1px solid rgba(79, 172, 254, 0.3)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-              }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4facfe" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </div>
-              <h3 className="font-display" style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>
-                Creator & Talent Network
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>
-                Direct access to vetted creators across lifestyle, tech, finance, and gaming who actually drive buyer conversions.
-              </p>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: 'var(--text-highlight)' }}>
-                <li>✓ End-to-end contract & fee negotiation</li>
-                <li>✓ Authenticity-first creative briefs</li>
-                <li>✓ Usage rights & whitelisting setup</li>
-              </ul>
-            </article>
-
-            {/* Service 3 */}
-            <article className="glass-card" id="service-performance-creative">
-              <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '12px',
-                background: 'rgba(138, 43, 226, 0.12)',
-                border: '1px solid rgba(138, 43, 226, 0.3)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-              }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8a2be2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="12" y1="20" x2="12" y2="10" />
-                  <line x1="18" y1="20" x2="18" y2="4" />
-                  <line x1="6" y1="20" x2="6" y2="16" />
-                </svg>
-              </div>
-              <h3 className="font-display" style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>
-                Performance Paid Ads (UGC)
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>
-                Direct-response ad creative that doesn't look like an ad. Built to lower customer acquisition cost (CAC) at scale.
-              </p>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: 'var(--text-highlight)' }}>
-                <li>✓ 20+ variations per testing cycle</li>
-                <li>✓ Meta, TikTok & YouTube Ads optimization</li>
-                <li>✓ Iterative hook testing matrix</li>
-              </ul>
-            </article>
-
-            {/* Service 4 */}
-            <article className="glass-card" id="service-brand-resonance">
-              <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '12px',
-                background: 'rgba(244, 63, 94, 0.12)',
-                border: '1px solid rgba(244, 63, 94, 0.3)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-              }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <polygon points="12 8 8 12 12 16 16 12 12 8" />
-                </svg>
-              </div>
-              <h3 className="font-display" style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>
-                Media Strategy & Positioning
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>
-                Turn your brand into a cultural media powerhouse with organic distribution channels that own their niche audience.
-              </p>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: 'var(--text-highlight)' }}>
-                <li>✓ Brand tone & narrative development</li>
-                <li>✓ Multi-channel syndication</li>
-                <li>✓ Community-led growth architecture</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* INTERACTIVE GROWTH ESTIMATOR */}
-      <section id="calculator" className="section-padding">
-        <div className="container">
-          <div className="glass-card" style={{
-            padding: '48px 32px',
-            border: '1px solid rgba(0, 242, 254, 0.2)',
-            background: 'linear-gradient(180deg, rgba(18, 24, 38, 0.8) 0%, rgba(13, 17, 26, 0.95) 100%)',
-          }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '48px',
-              alignItems: 'center',
-            }}>
+            {/* Quick Metrics / Impact Highlights */}
+            <div className="w-full max-w-3xl pt-8 border-t border-slate-200/70 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div>
-                <div className="badge-glow" style={{ marginBottom: '16px' }}>
-                  <span>Interactive Estimator</span>
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  <span className="text-gradient">10x</span>
                 </div>
-                <h2 className="font-display" style={{ fontSize: '32px', fontWeight: 700, marginBottom: '16px', lineHeight: 1.2 }}>
-                  Calculate Your Projected Growth With ClickMineMedia
-                </h2>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginBottom: '32px', lineHeight: 1.6 }}>
-                  Adjust your planned monthly creative spend to see projected impressions, creator pairings, and targeted ROAS metrics.
-                </p>
-
-                {/* Slider Control */}
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <label htmlFor="budget-slider" style={{ fontSize: '14px', fontWeight: 600 }}>
-                      Monthly Media Budget:
-                    </label>
-                    <span className="font-display text-gradient" style={{ fontSize: '20px', fontWeight: 700 }}>
-                      ${budget.toLocaleString()} / mo
-                    </span>
-                  </div>
-                  <input
-                    id="budget-slider"
-                    type="range"
-                    min="3000"
-                    max="50000"
-                    step="1000"
-                    value={budget}
-                    onChange={(e) => setBudget(Number(e.target.value))}
-                    style={{
-                      width: '100%',
-                      accentColor: '#00f2fe',
-                      cursor: 'pointer',
-                      height: '6px',
-                    }}
-                  />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '12px', marginTop: '6px' }}>
-                    <span>$3,000</span>
-                    <span>$25,000</span>
-                    <span>$50,000+</span>
-                  </div>
-                </div>
+                <div className="text-xs text-slate-500 font-medium mt-0.5">Growth Mindset</div>
               </div>
-
-              {/* Dynamic Projection Results */}
-              <div style={{
-                background: 'rgba(7, 9, 14, 0.6)',
-                borderRadius: '16px',
-                padding: '32px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-              }}>
-                <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '24px' }}>
-                  Estimated Monthly Impact
-                </h3>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '12px' }}>
-                    <span style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Projected Impressions</span>
-                    <span className="font-display" style={{ fontSize: '24px', fontWeight: 700, color: '#00f2fe' }}>
-                      ~{estimatedViews.toLocaleString()} views
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '12px' }}>
-                    <span style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Creator Collaborations</span>
-                    <span className="font-display" style={{ fontSize: '24px', fontWeight: 700, color: '#4facfe' }}>
-                      {estimatedCreators} creators
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', paddingBottom: '12px' }}>
-                    <span style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Target Campaign ROAS</span>
-                    <span className="font-display" style={{ fontSize: '24px', fontWeight: 700, color: '#10b981' }}>
-                      {estimatedROAS}x
-                    </span>
-                  </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  <span className="text-gradient">100%</span>
                 </div>
-
-                <a href="#contact" className="btn-primary" style={{ width: '100%', marginTop: '28px', boxSizing: 'border-box' }}>
-                  Lock In This Growth Plan
-                </a>
+                <div className="text-xs text-slate-500 font-medium mt-0.5">Tailored Execution</div>
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  <span className="text-gradient">Multi</span>
+                </div>
+                <div className="text-xs text-slate-500 font-medium mt-0.5">Channel Synergy</div>
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  <span className="text-gradient">End-to-End</span>
+                </div>
+                <div className="text-xs text-slate-500 font-medium mt-0.5">Creative + Data</div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CASE STUDIES BENTO GRID */}
-      <section id="case-studies" className="section-padding" style={{ backgroundColor: 'rgba(13, 17, 26, 0.3)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-            <div className="badge-glow" style={{ marginBottom: '16px' }}>
-              <span>Proof of Work</span>
-            </div>
-            <h2 className="font-display" style={{ fontSize: '36px', fontWeight: 700, marginBottom: '16px' }}>
-              Real Scale. Real Metrics.
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '16px' }}>
-              Here is how we helped fast-moving brands capture market dominance through viral hooks and creator partnerships.
-            </p>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '28px',
-          }}>
-            {/* Case Study 1 */}
-            <div className="glass-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: '#00f2fe', textTransform: 'uppercase' }}>
-                  D2C Apparel
-                </span>
-                <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>60-Day Campaign</span>
-              </div>
-              <h3 className="font-display" style={{ fontSize: '22px', fontWeight: 700, marginBottom: '12px' }}>
-                +340% Revenue Surge via TikTok Spark Ads & UGC
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '24px' }}>
-                Structured an organic-to-paid feedback loop leveraging 15 creator hook variations, driving an instant spike in return on ad spend.
-              </p>
-              <div style={{ display: 'flex', gap: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '16px' }}>
-                <div>
-                  <div className="font-display" style={{ fontSize: '20px', fontWeight: 700, color: '#f8fafc' }}>28.4M</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Total Views</div>
-                </div>
-                <div>
-                  <div className="font-display" style={{ fontSize: '20px', fontWeight: 700, color: '#10b981' }}>5.2x</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Blended ROAS</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Case Study 2 */}
-            <div className="glass-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: '#4facfe', textTransform: 'uppercase' }}>
-                  Consumer Fintech
-                </span>
-                <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>90-Day Scaling</span>
-              </div>
-              <h3 className="font-display" style={{ fontSize: '22px', fontWeight: 700, marginBottom: '12px' }}>
-                110,000+ App Installs at $1.28 Blended CAC
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '24px' }}>
-                Deconstructed financial literacy into bite-sized cinematic narratives that dominated YouTube Shorts and Instagram Reels algorithm feeds.
-              </p>
-              <div style={{ display: 'flex', gap: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '16px' }}>
-                <div>
-                  <div className="font-display" style={{ fontSize: '20px', fontWeight: 700, color: '#f8fafc' }}>110k+</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>New Users</div>
-                </div>
-                <div>
-                  <div className="font-display" style={{ fontSize: '20px', fontWeight: 700, color: '#10b981' }}>-58%</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>CAC Reduction</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Case Study 3 */}
-            <div className="glass-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: '#8a2be2', textTransform: 'uppercase' }}>
-                  Hardware / Tech
-                </span>
-                <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Product Launch</span>
-              </div>
-              <h3 className="font-display" style={{ fontSize: '22px', fontWeight: 700, marginBottom: '12px' }}>
-                Sold Out 5,000 Units in First 48 Hours
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '24px' }}>
-                Coordinated synchronized teaser launches across 24 niche tech creators, creating intense viral FOMO and retail demand.
-              </p>
-              <div style={{ display: 'flex', gap: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '16px' }}>
-                <div>
-                  <div className="font-display" style={{ fontSize: '20px', fontWeight: 700, color: '#f8fafc' }}>$2.4M</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Launch Revenue</div>
-                </div>
-                <div>
-                  <div className="font-display" style={{ fontSize: '20px', fontWeight: 700, color: '#10b981' }}>48 Hrs</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Inventory Out</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT / CTA SECTION */}
-      <section id="contact" className="section-padding">
-        <div className="container">
-          <div className="glass-card" style={{
-            maxWidth: '800px',
-            margin: '0 auto',
-            padding: '48px 36px',
-            border: '1px solid rgba(79, 172, 254, 0.3)',
-          }}>
-            <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-              <div className="badge-glow" style={{ marginBottom: '16px' }}>
-                <span>Ready To Scale?</span>
-              </div>
-              <h2 className="font-display" style={{ fontSize: '32px', fontWeight: 700, marginBottom: '12px' }}>
-                Book Your Growth Strategy Session
+        {/* ========================================================================= */}
+        {/* Services Overview */}
+        {/* ========================================================================= */}
+        <section id="services" className="py-14 sm:py-20 px-6 sm:px-8 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto">
+            {/* Header */}
+            <div className="max-w-3xl mb-10">
+              <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 mb-3">
+                Everything You Need to Scale
               </h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
-                Let's analyze your current media footprint and engineer a custom distribution plan for ClickMineMedia.
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+                No disjointed tactics. We align paid media, organic authority, creative direction, and website conversion into one synchronized growth engine.
               </p>
             </div>
 
-            {inquirySubmitted ? (
-              <div style={{
-                textAlign: 'center',
-                padding: '40px 20px',
-                background: 'rgba(16, 185, 129, 0.1)',
-                border: '1px solid rgba(16, 185, 129, 0.3)',
-                borderRadius: '16px',
-              }}>
-                <div style={{
-                  width: '54px',
-                  height: '54px',
-                  borderRadius: '50%',
-                  background: 'rgba(16, 185, 129, 0.2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px auto',
-                  color: '#10b981',
-                }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <h3 className="font-display" style={{ fontSize: '22px', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
-                  Strategy Request Received!
-                </h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '15px', maxWidth: '480px', margin: '0 auto' }}>
-                  Thank you, <strong>{formData.name || 'Partner'}</strong>. Our media director will review your brand details and reach out within 24 hours.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-                  <div>
-                    <label htmlFor="contact-name" style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '8px', color: 'var(--text-secondary)' }}>
-                      Your Name
-                    </label>
-                    <input
-                      id="contact-name"
-                      required
-                      type="text"
-                      placeholder="e.g. Alex Mercer"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      style={{
-                        width: '100%',
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        border: '1px solid var(--border-subtle)',
-                        borderRadius: '10px',
-                        padding: '12px 16px',
-                        color: 'var(--text-primary)',
-                        outline: 'none',
-                        boxSizing: 'border-box',
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="contact-email" style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '8px', color: 'var(--text-secondary)' }}>
-                      Business Email
-                    </label>
-                    <input
-                      id="contact-email"
-                      required
-                      type="email"
-                      placeholder="alex@company.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      style={{
-                        width: '100%',
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        border: '1px solid var(--border-subtle)',
-                        borderRadius: '10px',
-                        padding: '12px 16px',
-                        color: 'var(--text-primary)',
-                        outline: 'none',
-                        boxSizing: 'border-box',
-                      }}
-                    />
-                  </div>
-                </div>
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {servicesList.map((svc) => {
+                const IconComponent = svc.icon;
+                return (
+                  <div
+                    key={svc.id}
+                    className="glass-card rounded-2xl p-7 flex flex-col justify-between group"
+                  >
+                    <div>
+                      <div className="w-12 h-12 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-[#FF751F] mb-6 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#FF751F] group-hover:to-[#E50069] group-hover:text-white transition-all duration-300">
+                        <IconComponent className="w-6 h-6" />
+                      </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-                  <div>
-                    <label htmlFor="contact-brand" style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '8px', color: 'var(--text-secondary)' }}>
-                      Company / Brand URL
-                    </label>
-                    <input
-                      id="contact-brand"
-                      type="text"
-                      placeholder="https://brand.com"
-                      value={formData.brand}
-                      onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                      style={{
-                        width: '100%',
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        border: '1px solid var(--border-subtle)',
-                        borderRadius: '10px',
-                        padding: '12px 16px',
-                        color: 'var(--text-primary)',
-                        outline: 'none',
-                        boxSizing: 'border-box',
-                      }}
-                    />
-                  </div>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-[#FF751F] transition-colors">
+                        {svc.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 leading-relaxed mb-6">
+                        {svc.summary}
+                      </p>
+                    </div>
 
-                  <div>
-                    <label htmlFor="contact-service" style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '8px', color: 'var(--text-secondary)' }}>
-                      Primary Goal
-                    </label>
-                    <select
-                      id="contact-service"
-                      value={formData.service}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      style={{
-                        width: '100%',
-                        background: '#0d111a',
-                        border: '1px solid var(--border-subtle)',
-                        borderRadius: '10px',
-                        padding: '12px 16px',
-                        color: 'var(--text-primary)',
-                        outline: 'none',
-                        boxSizing: 'border-box',
-                      }}
-                    >
-                      <option value="Short-Form Production">Viral Short-Form Production</option>
-                      <option value="Creator Management">Creator & Influencer Management</option>
-                      <option value="Paid Performance Ads">Paid Performance Ads (UGC)</option>
-                      <option value="Full Media Architecture">Full Media Architecture</option>
-                    </select>
+                    <div className="pt-4 border-t border-slate-100">
+                      <ul className="space-y-2">
+                        {svc.features.map((feat, idx) => (
+                          <li
+                            key={idx}
+                            className="text-xs text-slate-600 flex items-center gap-2"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF751F]" />
+                            {feat}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                );
+              })}
+            </div>
 
-                <button
-                  type="submit"
-                  id="contact-submit-btn"
-                  className="btn-primary"
-                  style={{ width: '100%', padding: '16px', fontSize: '16px', marginTop: '12px' }}
-                >
-                  Request Media Proposal
-                </button>
-              </form>
-            )}
+            {/* Services Bottom Action */}
+            <div className="mt-10 text-center">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all group"
+              >
+                Find the Right Solution for Your Brand
+                <ArrowUpRight className="w-4 h-4 text-[#FF751F] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* Streamlined Process: How We Work */}
+        {/* ========================================================================= */}
+        <section id="process" className="py-14 sm:py-20 px-6 sm:px-8 bg-slate-50/70 border-y border-slate-200/80">
+          <div className="max-w-7xl mx-auto">
+            <div className="max-w-2xl mb-10">
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-3">
+                High Speed. Zero Friction.
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+                How we take brands from first conversation to full campaign launch and relentless scaling.
+              </p>
+            </div>
+
+            {/* 4 Process Steps */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {processSteps.map((step) => (
+                <div
+                  key={step.step}
+                  className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
+                >
+                  <div>
+                    <span className="text-4xl font-black text-slate-200 block mb-3 font-mono">
+                      {step.step}
+                    </span>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </div>
+                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2">
+                    <Zap className="w-3.5 h-3.5 text-[#FF751F]" />
+                    <span className="text-xs font-semibold text-slate-500">Fast Execution</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* Final Conversion Section & Form */}
+        {/* ========================================================================= */}
+        <section id="contact" className="py-14 sm:py-20 px-6 sm:px-8 relative overflow-hidden">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Conversion Copy */}
+              <div className="lg:col-span-5">
+                <h2 className="text-4xl sm:text-6xl font-black text-slate-900 leading-tight mb-4 tracking-tight">
+                  Let&apos;s Build Something{' '}
+                  <span className="text-gradient">Iconic.</span>
+                </h2>
+                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal mb-8">
+                  Tell us where your brand is today and what you want to achieve. We&apos;ll formulate a customized plan to accelerate your growth.
+                </p>
+
+                <div className="space-y-3 pt-4 border-t border-slate-200/80">
+                  <div className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-[#FF751F]" />
+                    <span>Cross-channel strategy tailored to your margins</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-[#FF4B43]" />
+                    <span>Creative production that turns views into customers</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-[#E50069]" />
+                    <span>Fast turnaround with dedicated execution</span>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-slate-200/80">
+                  <p className="text-xs uppercase font-semibold tracking-wider text-slate-500 mb-3">
+                    Prefer direct booking?
+                  </p>
+                  <a
+                    href="https://calendly.com/clickminemedia/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={openCalendly}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition-all cursor-pointer group"
+                  >
+                    <span>Schedule 30-Min Call on Calendly</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#FF751F] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: Sleek Light Consultation Form */}
+              <div className="lg:col-span-7">
+                <div className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-xl relative">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-1">
+                    Tell Us About Your Brand
+                  </h3>
+                  <p className="text-sm text-slate-500 mb-6 font-normal">
+                    Share your requirements and we&apos;ll schedule a growth strategy session.
+                  </p>
+
+                  {formSubmitted ? (
+                    <div className="p-8 rounded-2xl bg-orange-50 border border-orange-200 text-center animate-fadeIn">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#FF751F] to-[#E50069] flex items-center justify-center mx-auto mb-4 text-white shadow-md">
+                        <Check className="w-7 h-7" />
+                      </div>
+                      <h4 className="text-xl font-bold text-slate-900 mb-2">
+                        Enquiry Received
+                      </h4>
+                      <p className="text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+                        Thanks for reaching out! Our team is reviewing your project details and will be in touch shortly.
+                      </p>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleFormSubmit} className="space-y-5">
+                      {formError && (
+                        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs font-medium">
+                          {formError}
+                        </div>
+                      )}
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                            Name *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="Your full name"
+                            value={formState.name}
+                            onChange={(e) =>
+                              setFormState({ ...formState, name: e.target.value })
+                            }
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm focus:border-[#FF751F] focus:bg-white focus:outline-none transition-colors"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                            Work Email *
+                          </label>
+                          <input
+                            type="email"
+                            required
+                            placeholder="name@company.com"
+                            value={formState.email}
+                            onChange={(e) =>
+                              setFormState({ ...formState, email: e.target.value })
+                            }
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm focus:border-[#FF751F] focus:bg-white focus:outline-none transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                            Company or Brand Name *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="Brand name"
+                            value={formState.company}
+                            onChange={(e) =>
+                              setFormState({ ...formState, company: e.target.value })
+                            }
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm focus:border-[#FF751F] focus:bg-white focus:outline-none transition-colors"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                            Website / Profile (Optional)
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="https://yourbrand.com"
+                            value={formState.website}
+                            onChange={(e) =>
+                              setFormState({ ...formState, website: e.target.value })
+                            }
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm focus:border-[#FF751F] focus:bg-white focus:outline-none transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Services Selection */}
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
+                          Services you are interested in:
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {[
+                            'Paid Ads & Performance',
+                            'Branding & Design',
+                            'Websites & Funnels',
+                            'SEO Growth',
+                            'Short-Form Video',
+                            'Growth Strategy',
+                          ].map((svc) => {
+                            const isSelected = formState.services.includes(svc);
+                            return (
+                              <button
+                                type="button"
+                                key={svc}
+                                onClick={() => toggleService(svc)}
+                                className={`text-xs px-3.5 py-2 rounded-full border transition-all ${
+                                  isSelected
+                                    ? 'bg-gradient-to-r from-[#FF751F] to-[#E50069] border-transparent text-white font-medium shadow-sm'
+                                    : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100'
+                                }`}
+                              >
+                                {svc}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Goals Description */}
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                          Briefly describe your goals
+                        </label>
+                        <textarea
+                          rows={3}
+                          placeholder="Tell us what you want to achieve, timelines, or targets..."
+                          value={formState.goals}
+                          onChange={(e) =>
+                            setFormState({ ...formState, goals: e.target.value })
+                          }
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-sm focus:border-[#FF751F] focus:bg-white focus:outline-none transition-colors resize-none"
+                        />
+                      </div>
+
+                      {/* Consent Checkbox */}
+                      <div className="flex items-start gap-3">
+                        <input
+                          type="checkbox"
+                          id="consent-check"
+                          checked={formState.consent}
+                          onChange={(e) =>
+                            setFormState({ ...formState, consent: e.target.checked })
+                          }
+                          className="mt-1 h-4 w-4 rounded border-slate-300 text-[#FF751F] focus:ring-[#FF751F]"
+                        />
+                        <label htmlFor="consent-check" className="text-xs text-slate-500 leading-normal">
+                          I agree to share my details for this inquiry.
+                        </label>
+                      </div>
+
+                      {/* Submit Button */}
+                      <button
+                        type="submit"
+                        className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF751F] via-[#FF4B43] to-[#E50069] text-white font-bold text-sm shadow-xl shadow-orange-500/20 hover:opacity-95 hover:shadow-orange-500/30 transition-all flex items-center justify-center gap-2 group"
+                      >
+                        Start a Conversation
+                        <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 }

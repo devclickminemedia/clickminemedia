@@ -1,160 +1,129 @@
 import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Mail, ArrowUpRight } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer style={{
-      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-      backgroundColor: '#05070a',
-      paddingTop: '80px',
-      paddingBottom: '40px',
-      position: 'relative',
-      zIndex: 1,
-    }}>
-      <div className="container">
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '48px',
-          marginBottom: '64px',
-        }}>
+    <footer className="border-t border-slate-200/80 bg-white text-slate-600 pt-14 pb-10 relative overflow-hidden">
+      {/* Background ambient gradient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-32 bg-gradient-to-b from-[#FF751F]/10 via-[#E50069]/5 to-transparent blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-slate-200/80">
           {/* Brand Info */}
-          <div style={{ maxWidth: '320px' }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              fontWeight: 700,
-              fontSize: '20px',
-              marginBottom: '16px',
-            }}>
-              <div style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #8a2be2 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#07090e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                </svg>
+          <div className="lg:col-span-2 space-y-4">
+            <Link href="/" className="inline-block">
+              <div className="relative h-11 w-44">
+                <Image
+                  src="/cmm-logo.png"
+                  alt="Click Mine Media Logo"
+                  width={180}
+                  height={44}
+                  className="object-contain"
+                  unoptimized
+                />
               </div>
-              <span>ClickMine<span style={{ color: '#00f2fe' }}>Media</span></span>
-            </div>
-            <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>
-              We orchestrate hyper-growth for visionary brands through viral storytelling, top-tier creator networks, and algorithmic performance creative.
+            </Link>
+            <p className="text-sm text-slate-500 leading-relaxed max-w-sm">
+              Turning brand attention into explosive revenue through smart performance marketing, standout creative, and high-converting digital experiences.
             </p>
-            <div style={{ display: 'flex', gap: '12px' }}>
-              {['Twitter', 'Instagram', 'YouTube', 'LinkedIn'].map((platform) => (
-                <div
-                  key={platform}
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '8px',
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#94a3b8',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                  }}
-                  title={platform}
+          </div>
+
+          {/* Core Services Column */}
+          <div>
+            <h4 className="text-slate-900 text-xs font-bold tracking-wider uppercase mb-4">
+              Services
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a href="#services" className="hover:text-slate-900 transition-colors">
+                  Performance & Paid Ads
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-slate-900 transition-colors">
+                  Creative & Branding
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-slate-900 transition-colors">
+                  High-Converting Web & UX
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-slate-900 transition-colors">
+                  Search Engine Optimization
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-slate-900 transition-colors">
+                  Social & Viral Content
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Navigation Links */}
+          <div>
+            <h4 className="text-slate-900 text-xs font-bold tracking-wider uppercase mb-4">
+              Explore
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a href="#home" className="hover:text-slate-900 transition-colors">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-slate-900 transition-colors">
+                  Services
+                </a>
+              </li>
+              <li>
+                <a href="#process" className="hover:text-slate-900 transition-colors">
+                  Process
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-slate-900 transition-colors">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Quick Contact */}
+          <div>
+            <h4 className="text-slate-900 text-xs font-bold tracking-wider uppercase mb-4">
+              Get in Touch
+            </h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 font-medium text-slate-900 hover:text-[#FF751F] transition-colors group"
                 >
-                  {platform[0]}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Solutions Column */}
-          <div>
-            <h4 style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#f8fafc', marginBottom: '20px' }}>
-              Solutions
-            </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {['Short-Form Video Engine', 'Creator & Influencer Management', 'Performance Ad Creatives', 'Organic Brand Resonance', 'Talent Representation'].map((item) => (
-                <li key={item}>
-                  <a href="#services" style={{ color: '#94a3b8', fontSize: '14px', transition: 'color 0.2s' }}>
-                    {item}
-                  </a>
-                </li>
-              ))}
+                  <Mail className="w-4 h-4 text-[#FF751F]" />
+                  <span>Start a Conversation</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              </li>
+              <li className="text-xs text-slate-500">
+                Partnering with brands worldwide.
+              </li>
             </ul>
-          </div>
-
-          {/* Company Column */}
-          <div>
-            <h4 style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#f8fafc', marginBottom: '20px' }}>
-              Company
-            </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {['About ClickMineMedia', 'Featured Case Studies', 'Creator Roster', 'Careers (Hiring!)', 'Press & Insights'].map((item) => (
-                <li key={item}>
-                  <a href="#case-studies" style={{ color: '#94a3b8', fontSize: '14px', transition: 'color 0.2s' }}>
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Stay Connected */}
-          <div>
-            <h4 style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#f8fafc', marginBottom: '20px' }}>
-              The Media Wire
-            </h4>
-            <p style={{ color: '#94a3b8', fontSize: '13px', lineHeight: 1.6, marginBottom: '16px' }}>
-              Receive our bi-weekly breakdown of algorithmic trends, viral formats, and conversion strategies.
-            </p>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                style={{
-                  flex: 1,
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '10px',
-                  padding: '10px 14px',
-                  color: '#f8fafc',
-                  fontSize: '13px',
-                  outline: 'none',
-                }}
-              />
-              <button
-                className="btn-primary"
-                style={{ padding: '10px 16px', fontSize: '13px', borderRadius: '10px' }}
-              >
-                Join
-              </button>
-            </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-          paddingTop: '32px',
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '16px',
-          color: '#64748b',
-          fontSize: '13px',
-        }}>
+        {/* Bottom Legal */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
-            © {new Date().getFullYear()} ClickMineMedia Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Click Mine Media. All rights reserved.
           </div>
-          <div style={{ display: 'flex', gap: '24px' }}>
-            <a href="#" style={{ color: '#64748b' }}>Privacy Policy</a>
-            <a href="#" style={{ color: '#64748b' }}>Terms of Service</a>
-            <a href="#" style={{ color: '#64748b' }}>Brand Guidelines</a>
+          <div className="flex items-center gap-6">
+            <span className="hover:text-slate-600 cursor-pointer">Privacy Policy</span>
+            <span className="hover:text-slate-600 cursor-pointer">Terms & Conditions</span>
           </div>
         </div>
       </div>
