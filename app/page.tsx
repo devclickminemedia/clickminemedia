@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import TechText from './components/TechText';
+import TiltedCard, { TiltedCardLayer } from './components/TiltedCard';
 import {
   ArrowUpRight,
   TrendingUp,
@@ -71,7 +72,7 @@ export default function Home() {
       title: 'Performance Marketing & Paid Ads',
       summary:
         'High-converting campaigns across Meta, Google, and TikTok. Engineered to acquire quality customers at scalable unit economics.',
-      icon: TrendingUp,
+      image: '/services/performance.jpg',
       features: ['Meta Ads Management', 'Google Ads Strategy', 'Audience Segmentation', 'Landing Page Optimization'],
     },
     {
@@ -79,7 +80,7 @@ export default function Home() {
       title: 'Branding & Creative Direction',
       summary:
         'Distinctive visual identity, campaign design systems, and creative assets that demand attention and build lasting brand equity.',
-      icon: Palette,
+      image: '/services/branding.jpg',
       features: ['Visual Direction', 'Brand Design Systems', 'Campaign Creatives', 'High-Impact Asset Kits'],
     },
     {
@@ -87,7 +88,7 @@ export default function Home() {
       title: 'Websites & High-Converting UX',
       summary:
         'Fast, responsive digital experiences crafted to turn visitors into buyers with frictionless navigation and clear value propositions.',
-      icon: Layout,
+      image: '/services/web.jpg',
       features: ['Modern Conversion UX', 'Mobile-First Design', 'Speed Optimization', 'High-Converting Funnels'],
     },
     {
@@ -95,7 +96,7 @@ export default function Home() {
       title: 'Search Engine Optimization',
       summary:
         'Sustainable organic search authority built on rigorous technical health, high-intent content, and smart on-page architecture.',
-      icon: Search,
+      image: '/services/seo.jpg',
       features: ['Technical Health Audits', 'High-Intent Search Mapping', 'On-Page Architecture', 'Content Relevance'],
     },
     {
@@ -103,7 +104,7 @@ export default function Home() {
       title: 'Video & Short-Form Content',
       summary:
         'Dynamic short-form video and platform-native content with punchy hooks designed to capture modern attention spans.',
-      icon: Video,
+      image: '/services/video.jpg',
       features: ['Short-Form Video Concepts', 'Viral Hook Pacing', 'Scriptwriting', 'Multi-Platform Formats'],
     },
     {
@@ -111,7 +112,7 @@ export default function Home() {
       title: 'Digital Growth Strategy',
       summary:
         'A comprehensive, data-driven masterplan aligning your channels, creative messaging, and customer acquisition funnels.',
-      icon: Target,
+      image: '/services/strategy.jpg',
       features: ['Funnel Architecture', 'Competitor Benchmarking', 'Attribution Modeling', 'Growth Roadmaps'],
     },
   ];
@@ -148,7 +149,7 @@ export default function Home() {
         {/* ========================================================================= */}
         {/* Hero Section */}
         {/* ========================================================================= */}
-        <section className="relative pt-28 sm:pt-36 pb-12 sm:pb-16 px-6 sm:px-8 overflow-hidden bg-grid-pattern">
+        <section className="relative pt-24 sm:pt-28 pb-8 sm:pb-10 px-6 sm:px-8 overflow-hidden bg-grid-pattern">
           {/* Ambient Brand Gradient Auroras */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] h-[450px] bg-gradient-to-tr from-[#FF751F]/15 via-[#FF4B43]/15 to-[#E50069]/15 blur-[130px] rounded-full pointer-events-none -z-10" />
           <div className="absolute top-1/2 right-[-100px] w-96 h-96 bg-[#FF751F]/10 blur-[110px] rounded-full pointer-events-none -z-10" />
@@ -159,8 +160,8 @@ export default function Home() {
 
             {/* Interactive TechText Headline with Existing Brand Colors */}
             <div
-              style={{ width: '100%', height: '340px', position: 'relative' }}
-              className="max-w-4xl mx-auto mb-4"
+              style={{ width: '100%', height: '300px', position: 'relative' }}
+              className="max-w-4xl mx-auto mb-2"
             >
               <TechText
                 text={"Make Your Brand\nImpossible to Ignore."}
@@ -193,19 +194,19 @@ export default function Home() {
             </div>
 
             {/* Subheading */}
-            <p className="text-lg sm:text-2xl text-slate-600 max-w-2xl leading-relaxed font-normal mb-8">
+            <p className="text-base sm:text-xl text-slate-600 max-w-2xl leading-relaxed font-normal mb-6">
               We craft high-growth digital marketing, scroll-stopping creative, and performance engines that turn audience attention into explosive revenue.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto mb-7">
               <a
                 href="https://calendly.com/clickminemedia/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={openCalendly}
                 id="hero-primary-cta"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-[#FF751F] via-[#FF4B43] to-[#E50069] text-white font-bold text-base shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                className="btn-press w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-[#FF751F] via-[#FF4B43] to-[#E50069] text-white font-bold text-sm sm:text-base shadow-lg shadow-orange-500/20 hover:shadow-orange-500/35 hover:brightness-105 transition-all flex items-center justify-center gap-2 group cursor-pointer"
               >
                 Let&apos;s Talk Growth
                 <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -213,37 +214,37 @@ export default function Home() {
               <a
                 href="#services"
                 id="hero-secondary-cta"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-800 font-semibold text-base shadow-sm hover:shadow transition-all flex items-center justify-center"
+                className="btn-press w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-800 font-semibold text-sm sm:text-base shadow-xs hover:shadow-sm transition-all flex items-center justify-center"
               >
                 Explore Services
               </a>
             </div>
 
             {/* Quick Metrics / Impact Highlights */}
-            <div className="w-full max-w-3xl pt-8 border-t border-slate-200/70 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                  <span className="text-gradient">10x</span>
+            <div className="w-full max-w-4xl pt-6 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <div className="p-3.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 tabular-nums tracking-tight">
+                  <span className="text-gradient">10×</span>
                 </div>
-                <div className="text-xs text-slate-500 font-medium mt-0.5">Growth Mindset</div>
+                <div className="text-[11px] font-semibold text-slate-600 mt-1 uppercase tracking-wider">Average ROAS Focus</div>
               </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              <div className="p-3.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 tabular-nums tracking-tight">
                   <span className="text-gradient">100%</span>
                 </div>
-                <div className="text-xs text-slate-500 font-medium mt-0.5">Tailored Execution</div>
+                <div className="text-[11px] font-semibold text-slate-600 mt-1 uppercase tracking-wider">Tailored Strategy</div>
               </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                  <span className="text-gradient">Multi</span>
+              <div className="p-3.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                  <span className="text-gradient">Omni</span>
                 </div>
-                <div className="text-xs text-slate-500 font-medium mt-0.5">Channel Synergy</div>
+                <div className="text-[11px] font-semibold text-slate-600 mt-1 uppercase tracking-wider">Channel Synergy</div>
               </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                  <span className="text-gradient">End-to-End</span>
+              <div className="p-3.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                  <span className="text-gradient">Full-Funnel</span>
                 </div>
-                <div className="text-xs text-slate-500 font-medium mt-0.5">Creative + Data</div>
+                <div className="text-[11px] font-semibold text-slate-600 mt-1 uppercase tracking-wider">Creative + Analytics</div>
               </div>
             </div>
           </div>
@@ -252,14 +253,14 @@ export default function Home() {
         {/* ========================================================================= */}
         {/* Services Overview */}
         {/* ========================================================================= */}
-        <section id="services" className="py-14 sm:py-20 px-6 sm:px-8 relative overflow-hidden">
+        <section id="services" className="py-10 sm:py-14 px-6 sm:px-8 relative overflow-hidden">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
-            <div className="max-w-3xl mb-10">
-              <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 mb-3">
+            <div className="max-w-3xl mb-8">
+              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 mb-2.5">
                 Everything You Need to Scale
               </h2>
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
                 No disjointed tactics. We align paid media, organic authority, creative direction, and website conversion into one synchronized growth engine.
               </p>
             </div>
@@ -267,52 +268,58 @@ export default function Home() {
             {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {servicesList.map((svc) => {
-                const IconComponent = svc.icon;
                 return (
-                  <div
+                  <TiltedCard
                     key={svc.id}
-                    className="glass-card rounded-2xl p-7 flex flex-col justify-between group"
+                    containerWidth="100%"
+                    containerHeight="auto"
+                    imageWidth="100%"
+                    imageHeight="auto"
+                    rotateAmplitude={8}
+                    scaleOnHover={1.02}
+                    glare={0.3}
+                    shadow={0.4}
+                    radius={24}
+                    intro={false}
+                    className="w-full h-full flex"
                   >
-                    <div>
-                      <div className="w-12 h-12 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-[#FF751F] mb-6 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#FF751F] group-hover:to-[#E50069] group-hover:text-white transition-all duration-300">
-                        <IconComponent className="w-6 h-6" />
+                    <div className="w-full h-full min-h-[460px] rounded-[24px] overflow-hidden flex flex-col justify-end group relative bg-slate-950 shadow-md border border-slate-800/80 transition-all duration-300">
+                      {/* Rich Imagery Full Background Layer */}
+                      <div
+                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105 opacity-90"
+                        style={{ backgroundImage: `url(${svc.image})` }}
+                      />
+
+                      {/* Editorial Dark Cinematic Gradient: Preserves top artwork in full vibrant brilliance while softly shading down to deep obsidian black */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 via-45% to-transparent pointer-events-none" />
+
+                      {/* Top subtle highlight rim */}
+                      <div className="absolute inset-x-0 top-0 h-px bg-white/20 pointer-events-none" />
+
+                      {/* Card Content pinned elegantly at the bottom */}
+                      <div className="relative z-10 p-7 flex flex-col justify-end">
+                        <h3 className="text-2xl font-black text-white leading-snug mb-5 group-hover:text-[#FF751F] transition-colors drop-shadow-sm">
+                          {svc.title}
+                        </h3>
+
+                        <div className="pt-4 border-t border-white/10">
+                          <ul className="space-y-2.5">
+                            {svc.features.map((feat, idx) => (
+                              <li
+                                key={idx}
+                                className="text-xs font-medium text-slate-200 flex items-center gap-2.5"
+                              >
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#FF751F] shrink-0 shadow-[0_0_8px_#FF751F]" />
+                                {feat}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
-
-                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-[#FF751F] transition-colors">
-                        {svc.title}
-                      </h3>
-                      <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                        {svc.summary}
-                      </p>
                     </div>
-
-                    <div className="pt-4 border-t border-slate-100">
-                      <ul className="space-y-2">
-                        {svc.features.map((feat, idx) => (
-                          <li
-                            key={idx}
-                            className="text-xs text-slate-600 flex items-center gap-2"
-                          >
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF751F]" />
-                            {feat}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+                  </TiltedCard>
                 );
               })}
-            </div>
-
-            {/* Services Bottom Action */}
-            <div className="mt-10 text-center">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all group"
-              >
-                Find the Right Solution for Your Brand
-                <ArrowUpRight className="w-4 h-4 text-[#FF751F] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
             </div>
           </div>
         </section>
@@ -320,38 +327,38 @@ export default function Home() {
         {/* ========================================================================= */}
         {/* Streamlined Process: How We Work */}
         {/* ========================================================================= */}
-        <section id="process" className="py-14 sm:py-20 px-6 sm:px-8 bg-slate-50/70 border-y border-slate-200/80">
+        <section id="process" className="py-10 sm:py-14 px-6 sm:px-8 bg-slate-50/70 border-y border-slate-200/80">
           <div className="max-w-7xl mx-auto">
-            <div className="max-w-2xl mb-10">
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-3">
+            <div className="max-w-2xl mb-8">
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-2.5">
                 High Speed. Zero Friction.
               </h2>
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
                 How we take brands from first conversation to full campaign launch and relentless scaling.
               </p>
             </div>
 
             {/* 4 Process Steps */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {processSteps.map((step) => (
                 <div
                   key={step.step}
-                  className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
+                  className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
                 >
                   <div>
-                    <span className="text-4xl font-black text-slate-200 block mb-3 font-mono">
+                    <span className="text-3xl font-black text-slate-200 block mb-2 font-mono">
                       {step.step}
                     </span>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                    <h3 className="text-base font-bold text-slate-900 mb-1.5">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                       {step.desc}
                     </p>
                   </div>
-                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2">
+                  <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center gap-2">
                     <Zap className="w-3.5 h-3.5 text-[#FF751F]" />
-                    <span className="text-xs font-semibold text-slate-500">Fast Execution</span>
+                    <span className="text-[11px] font-semibold text-slate-500">Fast Execution</span>
                   </div>
                 </div>
               ))}
@@ -362,36 +369,36 @@ export default function Home() {
         {/* ========================================================================= */}
         {/* Final Conversion Section & Form */}
         {/* ========================================================================= */}
-        <section id="contact" className="py-14 sm:py-20 px-6 sm:px-8 relative overflow-hidden">
+        <section id="contact" className="py-10 sm:py-14 px-6 sm:px-8 relative overflow-hidden">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Left Column: Conversion Copy */}
               <div className="lg:col-span-5">
-                <h2 className="text-4xl sm:text-6xl font-black text-slate-900 leading-tight mb-4 tracking-tight">
+                <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-tight mb-3 tracking-tight">
                   Let&apos;s Build Something{' '}
                   <span className="text-gradient">Iconic.</span>
                 </h2>
-                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal mb-8">
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal mb-6">
                   Tell us where your brand is today and what you want to achieve. We&apos;ll formulate a customized plan to accelerate your growth.
                 </p>
 
-                <div className="space-y-3 pt-4 border-t border-slate-200/80">
-                  <div className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                <div className="space-y-2.5 pt-3.5 border-t border-slate-200/80">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                     <span className="w-2 h-2 rounded-full bg-[#FF751F]" />
                     <span>Cross-channel strategy tailored to your margins</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                     <span className="w-2 h-2 rounded-full bg-[#FF4B43]" />
                     <span>Creative production that turns views into customers</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                     <span className="w-2 h-2 rounded-full bg-[#E50069]" />
                     <span>Fast turnaround with dedicated execution</span>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-slate-200/80">
-                  <p className="text-xs uppercase font-semibold tracking-wider text-slate-500 mb-3">
+                <div className="mt-6 pt-5 border-t border-slate-200/80">
+                  <p className="text-xs uppercase font-semibold tracking-wider text-slate-500 mb-2.5">
                     Prefer direct booking?
                   </p>
                   <a

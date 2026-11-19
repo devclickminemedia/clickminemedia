@@ -5,6 +5,12 @@
 @layer base {
   :root {
     --font-rubik: 'Rubik', system-ui, sans-serif;
+    --c-canvas: #FAF9F6;
+    --c-card: #FFFFFF;
+    --c-ink: #0F172A;
+    --c-ink-secondary: #475569;
+    --c-ink-muted: #64748B;
+    --c-border: rgba(15, 23, 42, 0.08);
   }
 
   html,
@@ -12,15 +18,23 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #FAFAFC;
-    color: #0F172A;
+    background-color: var(--c-canvas);
+    color: var(--c-ink);
     overflow-x: hidden;
     font-family: 'Rubik', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6, .font-display {
     font-family: 'Rubik', system-ui, sans-serif;
     letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
@@ -40,37 +54,60 @@
   border-image: linear-gradient(135deg, #FF751F 0%, #FF4B43 45%, #E50069 100%) 1;
 }
 
-/* Light Glass Cards */
+/* High-Craft Surface Cards (Taste & Impeccable specs) */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
-.glass-card {
+.craft-card {
   background: #FFFFFF;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease;
 }
 
-.glass-card:hover {
-  border-color: rgba(255, 117, 31, 0.4);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 35px -10px rgba(255, 75, 67, 0.12), 0 8px 16px -4px rgba(15, 23, 42, 0.06);
+.craft-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 117, 31, 0.28);
+  box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(255, 75, 67, 0.06);
 }
 
-/* Subtle Light Grid Background Pattern */
+/* Tabular Numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Button tactile press */
+.btn-press {
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, background-color 150ms ease-out;
+}
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* Subtle Light Architectural Grid Pattern */
 .bg-grid-pattern {
-  background-size: 48px 48px;
+  background-size: 56px 56px;
   background-image:
-    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
 }
 
-/* Smooth Focus */
+/* Smooth Focus Rings */
 :focus-visible {
   outline: 2px solid #FF751F;
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
