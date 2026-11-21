@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Send } from 'lucide-react';
 
@@ -10,6 +10,8 @@ export default function LeadForm({ idPrefix = 'f', onSuccess }: { idPrefix?: str
   const [formState, setFormState] = useState({ name: '', phone: '', email: '' });
   const [formError, setFormError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+  const startedAt = useRef(Date.now()); // used by the server to spot instant bot submissions
+  const [trap, setTrap] = useState(''); // hidden honeypot, real visitors never fill it
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,8 +34,14 @@ export default function LeadForm({ idPrefix = 'f', onSuccess }: { idPrefix?: str
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formState),
+        body: JSON.stringify({ ...formState, company_website: trap, startedAt: startedAt.current }),
       });
+      if (res.status === 429) {
+        const data = await res.json().catch(() => ({}));
+        setFormError(data.error || 'Too many attempts. Please try again later.');
+        setSending(false);
+        return;
+      }
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         setFormError(data.error || 'Something went wrong. Please try again.');
@@ -56,12 +64,24 @@ export default function LeadForm({ idPrefix = 'f', onSuccess }: { idPrefix?: str
   ] as const;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+    <form onSubmit={handleSubmit} className="relative space-y-4" noValidate>
       {formError && (
         <div role="alert" className="p-3 rounded-[10px] bg-red-50 border border-red-200 text-red-700 text-sm">
           {formError}
         </div>
       )}
+      {/* Honeypot: hidden from people and screen readers, bots tend to fill it */}
+      <div aria-hidden="true" className="absolute -left-[10000px] w-px h-px overflow-hidden">
+        <label htmlFor={`${idPrefix}-company_website`}>Company website</label>
+        <input
+          id={`${idPrefix}-company_website`}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={trap}
+          onChange={(e) => setTrap(e.target.value)}
+        />
+      </div>
       {fields.map((f) => (
         <div key={f.key}>
           <label htmlFor={`${idPrefix}-${f.key}`} className="block text-sm font-medium text-slate-700 mb-2">

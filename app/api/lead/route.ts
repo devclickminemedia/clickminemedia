@@ -1,31 +1,81 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { rateLimit } from '../../lib/rateLimit';
 
 export const runtime = 'nodejs';
 
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 
+const MAX_BODY_BYTES = 2_000;
+const MIN_FILL_MS = 2_500; // humans take longer than this to fill three fields
+const HOUR = 60 * 60 * 1000;
+
+const clean = (v: unknown, max: number) =>
+  typeof v === 'string' ? v.replace(/[\r\n\t\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max) : '';
+
+const deny = (status: number, error: string, headers?: Record<string, string>) =>
+  NextResponse.json({ error }, { status, headers });
+
 export async function POST(req: Request) {
-  let body: { name?: string; phone?: string; email?: string };
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+  // 1. Only accept requests sent from this website
+  const origin = req.headers.get('origin');
+  const host = req.headers.get('host');
+  if (!origin || !host || new URL(origin).host !== host) {
+    return deny(403, 'Request not allowed.');
   }
 
-  const name = (body.name ?? '').trim().slice(0, 100);
-  const phone = (body.phone ?? '').trim().slice(0, 30);
-  const email = (body.email ?? '').trim().slice(0, 200);
+  // 2. Rate limit by IP: 5 submissions per 15 minutes, 20 per day
+  const ip = (req.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || req.headers.get('x-real-ip') || 'unknown';
+  for (const [limit, win] of [[5, 15 * 60 * 1000], [20, 24 * HOUR]] as const) {
+    const r = rateLimit(`ip:${ip}:${win}`, limit, win);
+    if (!r.ok) {
+      return deny(429, 'Too many requests. Please try again later or call us directly.', { 'Retry-After': String(r.retryAfter) });
+    }
+  }
 
-  if (!name || !phone || !/^\S+@\S+\.\S+$/.test(email) || phone.replace(/\D/g, '').length < 7) {
-    return NextResponse.json({ error: 'Please check your name, phone number and email.' }, { status: 400 });
+  // 3. Reject oversized bodies before parsing
+  const raw = await req.text();
+  if (raw.length > MAX_BODY_BYTES) return deny(413, 'Request too large.');
+
+  let body: Record<string, unknown>;
+  try {
+    body = JSON.parse(raw);
+    if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error();
+  } catch {
+    return deny(400, 'Invalid request.');
+  }
+
+  // 4. Bot traps: hidden honeypot field filled, or form submitted impossibly fast.
+  //    Pretend success so bots don't learn they were caught.
+  const startedAt = Number(body.startedAt);
+  if (clean(body.company_website, 200) || !startedAt || Date.now() - startedAt < MIN_FILL_MS) {
+    return NextResponse.json({ ok: true });
+  }
+
+  // 5. Validate and sanitise (strips line breaks, which blocks email header injection)
+  const name = clean(body.name, 100);
+  const phone = clean(body.phone, 30);
+  const email = clean(body.email, 200).toLowerCase();
+
+  if (
+    name.length < 2 ||
+    !/^[\p{L}\p{M} .'-]+$/u.test(name) ||
+    !/^\+?[\d\s()-]{7,20}$/.test(phone) ||
+    !/^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/i.test(email)
+  ) {
+    return deny(400, 'Please check your name, phone number and email.');
+  }
+
+  // 6. Limit repeat submissions for the same email (stops using the form to spam someone's inbox)
+  if (!rateLimit(`email:${email}`, 2, 24 * HOUR).ok) {
+    return deny(429, 'We already have your details. Our team will be in touch soon.');
   }
 
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, LEAD_NOTIFY_TO, MAIL_FROM_NAME } = process.env;
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !LEAD_NOTIFY_TO) {
     console.error('Lead email not sent: SMTP env vars are missing');
-    return NextResponse.json({ error: 'Email is not configured yet.' }, { status: 500 });
+    return deny(500, 'Something went wrong. Please try again or call us directly.');
   }
 
   const port = Number(SMTP_PORT || 465);
@@ -34,6 +84,9 @@ export async function POST(req: Request) {
     port,
     secure: port === 465,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 15_000,
   });
 
   const from = `"${MAIL_FROM_NAME || 'Click Mine Media'}" <${SMTP_USER}>`;
@@ -146,7 +199,7 @@ export async function POST(req: Request) {
       }),
     ]);
   } catch (err) {
-    console.error('Lead email failed', err);
+    console.error('Lead email failed', err instanceof Error ? err.message : 'unknown error');
     return NextResponse.json({ error: 'Could not send right now. Please try again.' }, { status: 502 });
   }
 
