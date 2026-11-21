@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import './globals.css';
+import MobileContactBar from './components/MobileContactBar';
+import CookieBanner from './components/CookieBanner';
+import MobileLeadPopup from './components/MobileLeadPopup';
 
 export const metadata: Metadata = {
   title: 'Click Mine Media | Digital Marketing, SEO & Creative Growth',
@@ -31,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#FAFAFC',
+  themeColor: '#f7f4ee',
   width: 'device-width',
   initialScale: 1,
 };
@@ -42,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth overflow-x-clip">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -55,8 +58,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#FAFAFC] text-slate-900 font-sans antialiased selection:bg-[#FF4B43] selection:text-white">
-        {children}
+      <body className="overflow-x-clip bg-[#f7f4ee] text-slate-900 font-sans antialiased selection:bg-[#FF4B43] selection:text-white">
+        {/* bottom padding on phones so the sticky bar never covers content */}
+        <div className="pb-[76px] md:pb-0">{children}</div>
+        <MobileContactBar />
+        <CookieBanner />
+        <MobileLeadPopup />
         <Script
           src="https://assets.calendly.com/assets/external/widget.js"
           strategy="lazyOnload"

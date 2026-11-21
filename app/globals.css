@@ -111,3 +111,7 @@
     scroll-behavior: auto !important;
   }
 }
+
+@keyframes cookieIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

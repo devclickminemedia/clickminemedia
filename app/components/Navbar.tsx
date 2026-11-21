@@ -30,7 +30,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         scrolled
           ? 'bg-white/80 backdrop-blur-xl border-b border-slate-200/80 shadow-sm py-3.5'
           : 'bg-transparent py-5'
@@ -55,19 +55,19 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
           <a
-            href="#services"
+            href="/services"
             className="text-slate-600 hover:text-slate-900 transition-colors"
           >
             Services
           </a>
           <a
-            href="#process"
+            href="/#process"
             className="text-slate-600 hover:text-slate-900 transition-colors"
           >
             Process
           </a>
           <a
-            href="#contact"
+            href="/#contact"
             className="text-slate-600 hover:text-slate-900 transition-colors"
           >
             Contact
@@ -84,8 +84,8 @@ export default function Navbar() {
             id="nav-cta-btn"
             className="relative group overflow-hidden rounded-full p-[1px] focus:outline-none cursor-pointer"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-[#FF751F] via-[#FF4B43] to-[#E50069] transition-all duration-300 group-hover:scale-105" />
-            <span className="relative flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-sm font-semibold text-slate-900 transition-all duration-300 group-hover:bg-slate-50">
+            <span className="absolute inset-0 bg-[#1f1b16]/15" />
+            <span className="relative flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-sm font-medium text-slate-900 transition-colors duration-300 group-hover:bg-slate-50">
               Let&apos;s Talk
               <ArrowUpRight className="w-4 h-4 text-[#FF4B43] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </span>
@@ -107,21 +107,21 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-2xl border-b border-slate-200 shadow-xl px-6 py-6 flex flex-col gap-5 animate-fadeIn">
           <a
-            href="#services"
+            href="/services"
             onClick={() => setMobileMenuOpen(false)}
             className="text-base font-semibold text-slate-800 hover:text-[#FF751F] transition-colors"
           >
             Services
           </a>
           <a
-            href="#process"
+            href="/#process"
             onClick={() => setMobileMenuOpen(false)}
             className="text-base font-semibold text-slate-800 hover:text-[#FF751F] transition-colors"
           >
             Process
           </a>
           <a
-            href="#contact"
+            href="/#contact"
             onClick={() => setMobileMenuOpen(false)}
             className="text-base font-semibold text-slate-800 hover:text-[#FF751F] transition-colors"
           >
@@ -136,7 +136,7 @@ export default function Navbar() {
                 setMobileMenuOpen(false);
                 openCalendly(e);
               }}
-              className="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-gradient-to-r from-[#FF751F] via-[#FF4B43] to-[#E50069] text-white font-semibold text-center shadow-lg shadow-orange-500/20 cursor-pointer"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-[10px] bg-[#1f1b16] hover:bg-[#2e2922] text-white font-semibold text-center cursor-pointer"
             >
               Let&apos;s Talk
               <ArrowUpRight className="w-4 h-4" />
