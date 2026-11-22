@@ -24,10 +24,10 @@ export default function Home() {
     if (e) e.preventDefault();
     if (typeof window !== 'undefined' && (window as any).Calendly) {
       (window as any).Calendly.initPopupWidget({
-        url: 'https://calendly.com/clickminemedia/30min',
+        url: 'https://calendly.com/meet-clickminemedia/30min',
       });
     } else {
-      window.open('https://calendly.com/clickminemedia/30min', '_blank');
+      window.open('https://calendly.com/meet-clickminemedia/30min', '_blank');
     }
   };
 
@@ -163,7 +163,7 @@ export default function Home() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto mb-7">
               <a
-                href="https://calendly.com/clickminemedia/30min"
+                href="https://calendly.com/meet-clickminemedia/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={openCalendly}
@@ -358,7 +358,7 @@ export default function Home() {
                     Prefer direct booking?
                   </p>
                   <a
-                    href="https://calendly.com/clickminemedia/30min"
+                    href="https://calendly.com/meet-clickminemedia/30min"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={openCalendly}

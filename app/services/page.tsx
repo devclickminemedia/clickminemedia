@@ -120,9 +120,9 @@ export default function ServicesPage() {
   const openCalendly = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     if (typeof window !== 'undefined' && (window as any).Calendly) {
-      (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/clickminemedia/30min' });
+      (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/meet-clickminemedia/30min' });
     } else {
-      window.open('https://calendly.com/clickminemedia/30min', '_blank');
+      window.open('https://calendly.com/meet-clickminemedia/30min', '_blank');
     }
   };
 
@@ -267,7 +267,7 @@ export default function ServicesPage() {
               </p>
             </div>
             <a
-              href="https://calendly.com/clickminemedia/30min"
+              href="https://calendly.com/meet-clickminemedia/30min"
               target="_blank"
               rel="noopener noreferrer"
               onClick={openCalendly}
