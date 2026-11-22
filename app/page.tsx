@@ -2,21 +2,18 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Navbar from './components/Navbar';
+import Header from './components/redesign/Header';
+import HeroSection from './components/redesign/HeroSection';
+import SelectedWork from './components/redesign/SelectedWork';
+import WhatWeOffer from './components/redesign/WhatWeOffer';
+import { display, body } from './components/redesign/fonts';
+import './components/redesign/redesign.css';
 import Footer from './components/Footer';
 import LeadForm from './components/LeadForm';
-import TechText from './components/TechText';
 import TiltedCard, { TiltedCardLayer } from './components/TiltedCard';
 import {
   ArrowUpRight,
-  TrendingUp,
-  Search,
-  Palette,
-  Layout,
-  Video,
-  Target,
   Zap,
-  Send,
 } from 'lucide-react';
 
 export default function Home() {
@@ -107,105 +104,17 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#f7f4ee] text-slate-900 selection:bg-[#FF4B43] selection:text-white">
-      {/* Header and Navigation */}
-      <Navbar />
+      {/* Phase 01 redesign (nav + hero + selected work). To remove: delete components/redesign and restore this file from main. */}
+      <div className={`rd-root ${display.variable} ${body.variable}`}>
+        <Header />
+        <main id="home">
+          <HeroSection />
+          <WhatWeOffer />
+          <SelectedWork />
+        </main>
+      </div>
 
-      <main id="home">
-        {/* ========================================================================= */}
-        {/* Hero Section */}
-        {/* ========================================================================= */}
-        <section className="relative pt-24 sm:pt-28 pb-8 sm:pb-10 px-6 sm:px-8 overflow-hidden">
-
-          <div className="max-w-5xl mx-auto w-full text-center relative z-10 flex flex-col items-center">
-            {/* H1 SEO Headline */}
-            <h1 className="sr-only">Make Your Brand Impossible to Ignore.</h1>
-
-            {/* Interactive TechText Headline with Existing Brand Colors */}
-            <div
-              style={{ width: '100%', position: 'relative' }}
-              className="h-[140px] sm:h-[220px] lg:h-[300px] max-w-4xl mx-auto mb-2"
-            >
-              <TechText
-                text={"Make Your Brand\nImpossible to Ignore."}
-                fontWeight={900}
-                fontSize={120}
-                reveal="letter"
-                dashLength={4}
-                dashGap={2}
-                specks={15}
-                intro="none"
-                introDuration={2}
-                clickKick
-                guides={false}
-                fontFamily="Rubik"
-                letterSpacing={-0.03}
-                accentColor="#FF751F"
-                reach={200}
-                softness={0.7}
-                lineStyle="dashed"
-                strokeWidth={1.5}
-                speed={1}
-                bounce={0.4}
-                selection
-                labels
-                color="#0F172A"
-                align="center"
-                draggable
-                sweep
-              />
-            </div>
-
-            {/* Subheading */}
-            <p className="text-base sm:text-xl text-slate-600 max-w-2xl leading-relaxed font-normal mb-6">
-              We craft high-growth digital marketing, scroll-stopping creative, and performance engines that turn audience attention into explosive revenue.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto mb-7">
-              <a
-                href="https://calendly.com/clickminemedia/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={openCalendly}
-                id="hero-primary-cta"
-                className="btn-press w-full sm:w-auto px-7 py-3.5 rounded-[10px] bg-[#1f1b16] hover:bg-[#2e2922] text-white font-medium text-sm sm:text-base hover:brightness-105 transition-colors flex items-center justify-center gap-2 group cursor-pointer"
-              >
-                Let&apos;s Talk Growth
-                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-              <a
-                href="#services"
-                id="hero-secondary-cta"
-                className="btn-press w-full sm:w-auto px-7 py-3.5 rounded-[10px] bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-800 font-semibold text-sm sm:text-base shadow-xs hover:shadow-sm transition-colors flex items-center justify-center"
-              >
-                Explore Services
-              </a>
-            </div>
-
-            {/* Quick Metrics / Impact Highlights */}
-            <div className="w-full max-w-4xl pt-6 border-t border-slate-200/80 grid grid-cols-3 gap-2 sm:gap-4 text-center">
-              <div className="p-3.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
-                <div className="text-lg sm:text-3xl font-semibold text-slate-900 tabular-nums tracking-tight">
-                  100%
-                </div>
-                <div className="text-[11px] font-semibold text-slate-600 mt-1">Tailored Strategy</div>
-              </div>
-              <div className="p-3.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
-                <div className="text-lg sm:text-3xl font-semibold text-slate-900 tracking-tight">
-                  Omni
-                </div>
-                <div className="text-[11px] font-semibold text-slate-600 mt-1">Channel Synergy</div>
-              </div>
-              <div className="p-3.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
-                <div className="text-lg sm:text-3xl font-semibold text-slate-900 tracking-tight">
-                  Full-Funnel
-                </div>
-                <div className="text-[11px] font-semibold text-slate-600 mt-1">Creative + Analytics</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
+      <main>
         {/* ========================================================================= */}
         {/* Services Overview */}
         {/* ========================================================================= */}
