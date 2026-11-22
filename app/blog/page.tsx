@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { Newsreader } from 'next/font/google';
+import BlogGrid, { type PostCard } from './BlogGrid';
 import SiteHeader from '../components/redesign/SiteHeader';
 import Footer from '../components/Footer';
 import { sortedPosts, formatDate } from '../lib/blog';
+import FaqBlock from '../components/FaqBlock';
+
+const serif = Newsreader({ subsets: ['latin'], weight: ['400'] });
 
 export const metadata: Metadata = {
   title: 'Blog | Click Mine Media',
@@ -12,49 +15,25 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndex() {
-  const posts = sortedPosts();
+  const posts: PostCard[] = sortedPosts().map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    category: p.category,
+    image: p.image,
+    imageAlt: p.imageAlt,
+    published: p.published,
+    dateLabel: formatDate(p.published),
+  }));
   return (
     <div className="min-h-screen bg-[#f7f4ee] text-[#1f1b16] selection:bg-[#1f1b16] selection:text-white">
       <SiteHeader />
-      <main className="px-6 sm:px-8 pt-32 sm:pt-36 pb-24">
+      <main className="px-6 sm:px-8 pt-32 sm:pt-40 pb-24">
         <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl mb-10 sm:mb-14">
-            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.08] mb-5">Blog</h1>
-            <p className="text-base sm:text-lg text-[#5e554a] leading-relaxed">
-              Practical guides on branding, SEO, ads and websites, written for business owners.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/blog/${p.slug}`}
-                className="group flex flex-col rounded-2xl bg-[#fdfbf7] border border-[#1f1b16]/10 overflow-hidden hover:-translate-y-1 hover:border-[#1f1b16]/20 hover:shadow-[0_12px_32px_-16px_rgba(31,27,22,0.35)] transition-[transform,border-color,box-shadow] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF751F]"
-              >
-                <div className="aspect-[16/10] overflow-hidden bg-[#efe9df]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.image} alt={p.imageAlt} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500 ease-out" />
-                </div>
-                <div className="flex flex-col flex-1 p-6">
-                  <div className="flex items-center gap-2 text-xs text-[#7b7266] mb-3">
-                    <span className="font-medium text-[#C2410C]">{p.category}</span>
-                    <span aria-hidden>·</span>
-                    <time dateTime={p.published}>{formatDate(p.published)}</time>
-                    <span aria-hidden>·</span>
-                    <span>{p.readMinutes} min read</span>
-                  </div>
-                  <h2 className="text-xl font-semibold tracking-tight leading-snug mb-2 group-hover:text-[#C2410C] transition-colors">{p.title}</h2>
-                  <p className="text-[15px] text-[#5e554a] leading-relaxed mb-6">{p.excerpt}</p>
-                  <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium">
-                    Read article <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" strokeWidth={1.5} />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <BlogGrid posts={posts} headingClass={serif.className} />
         </div>
       </main>
+      <FaqBlock />
       <Footer />
     </div>
   );

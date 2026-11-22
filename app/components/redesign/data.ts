@@ -13,7 +13,6 @@ export type NavItem = { label: string; href?: string; soon?: boolean; mega?: boo
 
 // Studio has no route yet — rendered as "soon", never as broken links.
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'Work', href: '/#work' },
   { label: 'Services', href: '/services', mega: true },
   { label: 'Studio', soon: true },
   { label: 'Blogs', href: '/blog' },
@@ -29,23 +28,19 @@ export const SERVICES = [
   { id: 'strategy', name: 'Digital Growth Strategy', desc: 'One plan aligning channels, creative and funnels.', image: '/services/strategy.jpg' },
 ];
 
-export type Project = {
-  no: string;
+export type ShowcaseService = {
+  id: string; // id from lib/services.ts
   title: string;
-  category: string;
-  showcase: string[];
-  variant: 'brand' | 'campaign' | 'digital' | 'attention';
-  layout: 'feature' | 'half';
-  href?: string; // set when a detail page exists — card becomes a link
+  tagline: string;
+  image: string;
+  imageAlt: string;
 };
 
-export const PROJECTS: Project[] = [
-  { no: '01', title: 'Brand Universe', category: 'Branding & Creative Direction', variant: 'brand', layout: 'feature',
-    showcase: ['Logo applications', 'Typography', 'Colour systems', 'Packaging', 'Collateral'] },
-  { no: '02', title: 'Campaign Lab', category: 'Advertising & Performance Creative', variant: 'campaign', layout: 'half',
-    showcase: ['Social ad creatives', 'Ad variations', 'Headlines', 'Landing concepts'] },
-  { no: '03', title: 'Digital Experience', category: 'Website Design & Development', variant: 'digital', layout: 'half',
-    showcase: ['Desktop mockups', 'Mobile interfaces', 'UI components', 'E-commerce'] },
-  { no: '04', title: 'Attention Studio', category: 'Video & Content Creation', variant: 'attention', layout: 'feature',
-    showcase: ['Vertical video', 'Storyboards', 'Motion graphics', 'Short-form concepts'] },
+export const SERVICE_SHOWCASE: ShowcaseService[] = [
+  { id: 'performance', title: 'Performance Marketing', tagline: 'Meta & Google Ads, audience targeting, landing pages', image: '/services/performance.jpg', imageAlt: 'Meta Ads Manager dashboard showing campaign results' },
+  { id: 'branding', title: 'Branding & Creative', tagline: 'Visual identity, design systems, campaign creatives', image: '/services/branding.jpg', imageAlt: 'Festive and brand creatives designed for social media' },
+  { id: 'web', title: 'Websites & UX', tagline: 'Fast, mobile-first sites built to convert', image: '/services/web.jpg', imageAlt: 'Responsive business website shown on a laptop' },
+  { id: 'seo', title: 'Search Engine Optimization', tagline: 'Technical audits, high-intent content, on-page SEO', image: '/services/seo.jpg', imageAlt: 'Search results and ranking growth on a laptop' },
+  { id: 'video', title: 'Video & Short-Form', tagline: 'Hooks, scripts and platform-native formats', image: '/services/video.jpg', imageAlt: 'Video editing timeline for short-form content' },
+  { id: 'strategy', title: 'Digital Growth Strategy', tagline: 'Funnels, benchmarking, attribution, roadmaps', image: '/services/strategy.jpg', imageAlt: 'Social media content calendar and performance dashboard' },
 ];

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import FaqBlock from './components/FaqBlock';
 
 export const metadata: Metadata = { title: 'Page not found | Click Mine Media' };
 
@@ -28,6 +29,7 @@ export default function NotFound() {
           </div>
         </div>
       </main>
+      <FaqBlock />
       <Footer />
     </div>
   );

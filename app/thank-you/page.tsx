@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { Check, ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import FaqBlock from '../components/FaqBlock';
 
 function Greeting() {
   const name = useSearchParams().get('name');
@@ -69,6 +70,7 @@ export default function ThankYouPage() {
         </div>
       </main>
 
+      <FaqBlock />
       <Footer />
     </div>
   );

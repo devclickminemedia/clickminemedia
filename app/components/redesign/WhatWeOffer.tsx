@@ -20,7 +20,6 @@ function Visual({ k }: { k: string }) {
         <div className="wo-chips">
           <span><Megaphone />Paid social</span><span><Search />Search</span>
         </div>
-        <div className="wo-metric"><small>Sample CTR</small><b>3.8%</b></div>
       </div>
     );
   if (k === 'create')

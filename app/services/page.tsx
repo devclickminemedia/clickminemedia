@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import SiteHeader from '../components/redesign/SiteHeader';
 import Footer from '../components/Footer';
 import { services } from '../lib/services';
+import FaqBlock from '../components/FaqBlock';
 
 const num = (i: number) => String(i + 1).padStart(2, '0');
 
@@ -54,6 +55,7 @@ export default function ServicesPage() {
         </div>
       </main>
 
+      <FaqBlock />
       <Footer />
     </div>
   );

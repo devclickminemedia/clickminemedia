@@ -15,10 +15,10 @@ const Instagram = ({ className }: { className?: string }) => (
 import { PHONE, WHATSAPP, WHATSAPP_MESSAGE, INSTAGRAM, EMAIL } from '../lib/contact';
 
 const contactLinks = [
-  { label: EMAIL, href: `mailto:${EMAIL}`, Icon: Mail, external: false },
-  { label: '+91 92097 74877', href: `tel:${PHONE}`, Icon: Phone, external: false },
-  { label: 'WhatsApp: +91 92097 74877', href: `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`, Icon: MessageCircle, external: true },
-  { label: 'Instagram', href: `https://instagram.com/${INSTAGRAM}`, Icon: Instagram, external: true },
+  { title: 'Email', label: EMAIL, href: `mailto:${EMAIL}`, Icon: Mail, external: false },
+  { title: 'Call', label: '+91 92097 74877', href: `tel:${PHONE}`, Icon: Phone, external: false },
+  { title: 'WhatsApp', label: 'Chat with us', href: `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`, Icon: MessageCircle, external: true },
+  { title: 'Instagram', label: `@${INSTAGRAM}`, href: `https://instagram.com/${INSTAGRAM}`, Icon: Instagram, external: true },
 ];
 
 export default function Footer() {
@@ -26,9 +26,9 @@ export default function Footer() {
     <footer className="border-t border-slate-200/80 bg-white text-slate-600 pt-12 sm:pt-14 pb-[calc(env(safe-area-inset-bottom)+96px)] md:pb-10 relative overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-10 lg:gap-8 pb-10 sm:pb-12 border-b border-slate-200/80">
+        <div className="grid grid-cols-2 lg:grid-cols-12 gap-x-6 gap-y-10 lg:gap-8 pb-10 sm:pb-12 border-b border-slate-200/80">
           {/* Brand Info */}
-          <div className="col-span-2 space-y-4">
+          <div className="col-span-2 lg:col-span-4 space-y-4">
             <Link href="/" className="inline-block">
               <div className="relative h-11 w-44">
                 <Image
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
 
           {/* Core Services Column */}
-          <div>
+          <div className="lg:col-span-2">
             <h4 className="text-slate-900 text-sm font-medium mb-4">
               Services
             </h4>
@@ -74,7 +74,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <div>
+          <div className="lg:col-span-2">
             <h4 className="text-slate-900 text-sm font-medium mb-4">
               Explore
             </h4>
@@ -113,37 +113,43 @@ export default function Footer() {
           </div>
 
           {/* Quick Contact */}
-          <div className="col-span-2 md:col-span-1">
-            <h4 className="text-slate-900 text-sm font-medium mb-4">
-              Get in Touch
-            </h4>
-            <ul className="space-y-1 sm:space-y-3 text-[15px] sm:text-sm">
-              <li>
-                <a
-                  href="/#contact"
-                  className="inline-flex items-center gap-2 py-1.5 sm:py-0 font-medium text-slate-900 hover:text-[#FF751F] transition-colors group"
-                >
-                  <Mail className="w-4 h-4 text-[#FF751F]" />
-                  <span>Start a Conversation</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </li>
-              {contactLinks.map(({ label, href, Icon, external }) => (
-                <li key={label}>
+          <div className="col-span-2 lg:col-span-4 max-lg:relative max-lg:overflow-hidden max-lg:rounded-3xl max-lg:bg-slate-900 max-lg:p-5 max-lg:shadow-[0_24px_48px_-24px_rgba(15,23,42,0.6)]">
+            <div aria-hidden className="lg:hidden pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-[#FF751F]/35 blur-3xl" />
+            <h4 className="relative max-lg:text-white max-lg:text-2xl max-lg:font-semibold max-lg:tracking-tight max-lg:mb-1 text-slate-900 text-sm font-medium mb-4">Get in Touch</h4>
+            <p className="relative lg:hidden text-sm text-white/60 mb-5">Talk to us about your next campaign.</p>
+            <a
+              href="/#contact"
+              className="relative group flex items-center justify-between gap-3 rounded-2xl bg-slate-900 max-lg:bg-[#FF751F] px-5 py-4 text-white hover:bg-[#FF751F] transition-colors mb-3"
+            >
+              <span>
+                <span className="block text-[15px] font-medium">Start a conversation</span>
+                <span className="block text-xs text-white/60 group-hover:text-white/80">Tell us about your project</span>
+              </span>
+              <span className="grid place-items-center w-9 h-9 rounded-full bg-white/10 shrink-0">
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </span>
+            </a>
+            <ul className="relative divide-y divide-slate-200/80 max-lg:divide-white/10 overflow-hidden rounded-2xl border border-slate-200/80 max-lg:border-white/10 bg-[#fcfaf7] max-lg:bg-white/5">
+              {contactLinks.map(({ title, label, href, Icon, external }) => (
+                <li key={title}>
                   <a
                     href={href}
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="inline-flex items-center gap-2 py-1.5 sm:py-0 font-medium text-slate-700 hover:text-[#FF751F] transition-colors break-all"
+                    className="group flex items-center gap-3.5 px-4 py-3.5 hover:bg-white max-lg:hover:bg-white/10 transition-colors"
                   >
-                    <Icon className="w-4 h-4 text-[#FF751F]" />
-                    <span>{label}</span>
+                    <span className="grid place-items-center w-9 h-9 rounded-xl bg-[#FF751F]/10 max-lg:bg-[#FF751F]/20 text-[#FF751F] shrink-0">
+                      <Icon className="w-4 h-4" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[11px] uppercase tracking-[0.12em] text-slate-400 max-lg:text-white/50">{title}</span>
+                      <span className="block text-sm font-medium text-slate-800 max-lg:text-white truncate group-hover:text-[#FF751F] transition-colors">{label}</span>
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-[#FF751F] shrink-0 transition-colors" />
                   </a>
                 </li>
               ))}
-              <li className="pt-2 sm:pt-0 text-xs text-slate-500">
-                Partnering with brands worldwide.
-              </li>
             </ul>
+            <p className="relative mt-4 text-xs text-slate-500 max-lg:text-white/50">Partnering with brands worldwide.</p>
           </div>
         </div>
 

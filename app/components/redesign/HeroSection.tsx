@@ -15,7 +15,7 @@ export default function HeroSection() {
         </p>
         <div className="rd-hero-ctas rd-fade" style={{ ['--d' as any]: '1.1s' }}>
           <HeroCTA />
-          <a href="#work" className="rd-btn rd-btn-ghost">Explore our work <ArrowDown aria-hidden /></a>
+          <a href="#services" className="rd-btn rd-btn-ghost">Explore our services <ArrowDown aria-hidden /></a>
         </div>
       </div>
       <div className="rd-hero-visual"><Dashboard3D /></div>

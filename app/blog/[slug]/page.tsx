@@ -8,6 +8,8 @@ import LeadForm from '../../components/LeadForm';
 import FaqList from '../../components/FaqList';
 import { posts, formatDate, type Block } from '../../lib/blog';
 import { services } from '../../lib/services';
+import FaqBlock from '../../components/FaqBlock';
+import { faqsForService } from '../../lib/faqs';
 
 const SITE = 'https://clickminemedia.com';
 
@@ -209,6 +211,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         </section>
       </main>
 
+      {!p.faqs?.length && <FaqBlock items={(p.relatedService && faqsForService(p.relatedService)?.items) || undefined} />}
       <Footer />
     </div>
   );

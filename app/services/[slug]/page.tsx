@@ -6,8 +6,8 @@ import SiteHeader from '../../components/redesign/SiteHeader';
 import Footer from '../../components/Footer';
 import LeadForm from '../../components/LeadForm';
 import { services } from '../../lib/services';
-import FaqList from '../../components/FaqList';
 import { faqsForService, faqJsonLd } from '../../lib/faqs';
+import FaqBlock from '../../components/FaqBlock';
 
 const SITE = 'https://clickminemedia.com';
 
@@ -136,24 +136,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           </div>
         </section>
 
-        {/* FAQ */}
-        {faq && (
-          <section className="px-6 sm:px-8 pb-16">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-              <div className="lg:col-span-4">
-                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-[1.15] mb-3">Common questions</h2>
-                <p className="text-[15px] text-[#5e554a] leading-relaxed">
-                  More answers on our{' '}
-                  <Link href="/faq" className="underline underline-offset-4 hover:text-[#C2410C]">FAQ page</Link>.
-                </p>
-              </div>
-              <div className="lg:col-span-8">
-                <FaqList items={faq.items} />
-              </div>
-            </div>
-          </section>
-        )}
-
         {/* Lead form */}
         <section id="get-started" className="scroll-mt-24 px-6 sm:px-8 pb-16">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
@@ -192,6 +174,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </section>
       </main>
 
+      {faq && <FaqBlock items={faq.items} />}
       <Footer />
     </div>
   );
