@@ -12,12 +12,12 @@ const Instagram = ({ className }: { className?: string }) => (
   </svg>
 );
 
-import { PHONE, WHATSAPP, INSTAGRAM, EMAIL } from '../lib/contact';
+import { PHONE, WHATSAPP, WHATSAPP_MESSAGE, INSTAGRAM, EMAIL } from '../lib/contact';
 
 const contactLinks = [
   { label: EMAIL, href: `mailto:${EMAIL}`, Icon: Mail, external: false },
   { label: '+91 92097 74877', href: `tel:${PHONE}`, Icon: Phone, external: false },
-  { label: 'WhatsApp', href: `https://wa.me/${WHATSAPP}`, Icon: MessageCircle, external: true },
+  { label: 'WhatsApp: +91 92097 74877', href: `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`, Icon: MessageCircle, external: true },
   { label: 'Instagram', href: `https://instagram.com/${INSTAGRAM}`, Icon: Instagram, external: true },
 ];
 
