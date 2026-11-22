@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { rateLimit } from '../../lib/rateLimit';
+import { normaliseIndianMobile, validateLead } from '../../lib/leadValidation';
 
 export const runtime = 'nodejs';
 
@@ -54,18 +55,14 @@ export async function POST(req: Request) {
   }
 
   // 5. Validate and sanitise (strips line breaks, which blocks email header injection)
-  const name = clean(body.name, 100);
-  const phone = clean(body.phone, 30);
+  const name = clean(body.name, 100).replace(/\s+/g, ' ');
+  const rawPhone = clean(body.phone, 30);
   const email = clean(body.email, 200).toLowerCase();
 
-  if (
-    name.length < 2 ||
-    !/^[\p{L}\p{M} .'-]+$/u.test(name) ||
-    !/^\+?[\d\s()-]{7,20}$/.test(phone) ||
-    !/^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/i.test(email)
-  ) {
+  if (Object.keys(validateLead({ name, phone: rawPhone, email })).length) {
     return deny(400, 'Please check your name, phone number and email.');
   }
+  const phone = `+91 ${normaliseIndianMobile(rawPhone)}`; // stored/sent in one consistent format
 
   // 6. Limit repeat submissions for the same email (stops using the form to spam someone's inbox)
   if (!rateLimit(`email:${email}`, 2, 24 * HOUR).ok) {

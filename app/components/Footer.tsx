@@ -23,12 +23,12 @@ const contactLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200/80 bg-white text-slate-600 pt-14 pb-10 relative overflow-hidden">
+    <footer className="border-t border-slate-200/80 bg-white text-slate-600 pt-12 sm:pt-14 pb-[calc(env(safe-area-inset-bottom)+96px)] md:pb-10 relative overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-slate-200/80">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-10 lg:gap-8 pb-10 sm:pb-12 border-b border-slate-200/80">
           {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="col-span-2 space-y-4">
             <Link href="/" className="inline-block">
               <div className="relative h-11 w-44">
                 <Image
@@ -51,24 +51,24 @@ export default function Footer() {
             <h4 className="text-slate-900 text-sm font-medium mb-4">
               Services
             </h4>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-1 sm:space-y-2.5 text-[15px] sm:text-sm">
               <li>
-                <Link href="/services#performance" className="hover:text-slate-900 transition-colors">Performance & Paid Ads</Link>
+                <Link href="/services/performance-marketing" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">Performance & Paid Ads</Link>
               </li>
               <li>
-                <Link href="/services#branding" className="hover:text-slate-900 transition-colors">Branding & Creative</Link>
+                <Link href="/services/branding" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">Branding & Creative</Link>
               </li>
               <li>
-                <Link href="/services#web" className="hover:text-slate-900 transition-colors">Websites & UX</Link>
+                <Link href="/services/website-design" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">Websites & UX</Link>
               </li>
               <li>
-                <Link href="/services#seo" className="hover:text-slate-900 transition-colors">Search Engine Optimization</Link>
+                <Link href="/services/seo" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">Search Engine Optimization</Link>
               </li>
               <li>
-                <Link href="/services#video" className="hover:text-slate-900 transition-colors">Video & Short-Form</Link>
+                <Link href="/services/video-content" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">Video & Short-Form</Link>
               </li>
               <li>
-                <Link href="/services#strategy" className="hover:text-slate-900 transition-colors">Growth Strategy</Link>
+                <Link href="/services/growth-strategy" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">Growth Strategy</Link>
               </li>
             </ul>
           </div>
@@ -78,24 +78,34 @@ export default function Footer() {
             <h4 className="text-slate-900 text-sm font-medium mb-4">
               Explore
             </h4>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-1 sm:space-y-2.5 text-[15px] sm:text-sm">
               <li>
-                <a href="/" className="hover:text-slate-900 transition-colors">
+                <a href="/" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">
                   Home
                 </a>
               </li>
               <li>
-                <a href="/services" className="hover:text-slate-900 transition-colors">
+                <a href="/services" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">
                   Services
                 </a>
               </li>
               <li>
-                <a href="/#process" className="hover:text-slate-900 transition-colors">
+                <a href="/#process" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">
                   Process
                 </a>
               </li>
               <li>
-                <a href="/#contact" className="hover:text-slate-900 transition-colors">
+                <a href="/blog" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="/faq" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">
+                  FAQ
+                </a>
+              </li>
+              <li>
+                <a href="/#contact" className="inline-block py-1.5 sm:py-0 hover:text-slate-900 transition-colors">
                   Contact
                 </a>
               </li>
@@ -103,15 +113,15 @@ export default function Footer() {
           </div>
 
           {/* Quick Contact */}
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <h4 className="text-slate-900 text-sm font-medium mb-4">
               Get in Touch
             </h4>
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-1 sm:space-y-3 text-[15px] sm:text-sm">
               <li>
                 <a
                   href="/#contact"
-                  className="inline-flex items-center gap-2 font-medium text-slate-900 hover:text-[#FF751F] transition-colors group"
+                  className="inline-flex items-center gap-2 py-1.5 sm:py-0 font-medium text-slate-900 hover:text-[#FF751F] transition-colors group"
                 >
                   <Mail className="w-4 h-4 text-[#FF751F]" />
                   <span>Start a Conversation</span>
@@ -123,14 +133,14 @@ export default function Footer() {
                   <a
                     href={href}
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="inline-flex items-center gap-2 font-medium text-slate-700 hover:text-[#FF751F] transition-colors"
+                    className="inline-flex items-center gap-2 py-1.5 sm:py-0 font-medium text-slate-700 hover:text-[#FF751F] transition-colors break-all"
                   >
                     <Icon className="w-4 h-4 text-[#FF751F]" />
                     <span>{label}</span>
                   </a>
                 </li>
               ))}
-              <li className="text-xs text-slate-500">
+              <li className="pt-2 sm:pt-0 text-xs text-slate-500">
                 Partnering with brands worldwide.
               </li>
             </ul>
@@ -138,7 +148,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Legal */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-400">
           <div>
             &copy; {new Date().getFullYear()} Click Mine Media. All rights reserved.
           </div>

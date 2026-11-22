@@ -39,7 +39,10 @@
 .rd-nav-link.is-active { color: var(--ink); background: rgba(255,117,31,.14); }
 .rd-nav-link:not(.is-soon):hover { color: var(--ink); background: rgba(17,24,39,.06); }
 .rd-nav-link.is-soon { color: rgba(17,24,39,.32); cursor: default; }
-.rd-nav-mega { display: flex; align-items: center; }
+.rd-nav-mega { display: flex; align-items: center; border-radius: 999px; transition: background-color .25s; }
+.rd-nav-mega.is-active { background: rgba(255,117,31,.14); }
+.rd-nav-mega.is-active .rd-nav-link { color: var(--ink); }
+.rd-nav-mega.is-active .rd-nav-link:hover { background: transparent; }
 .rd-nav-caret { display: grid; place-items: center; width: 24px; height: 24px; margin: 0 6px 0 -10px; color: var(--muted); }
 .rd-plus { width: 14px; height: 14px; transition: transform .4s var(--ease); }
 .rd-plus.is-open { transform: rotate(45deg); color: var(--acc); }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { ArrowUpRight, Plus, X, Menu } from 'lucide-react';
+import { serviceHref } from '../../lib/services';
 import { NAV_ITEMS, SERVICES, CALENDLY_URL, openCalendly } from './data';
 
 function Logo() {
@@ -21,7 +22,7 @@ function ServicesMegaMenu({ open, onClose }: { open: boolean; onClose: () => voi
     <div className={`rd-mega ${open ? 'is-open' : ''}`} id="rd-mega" role="region" aria-label="Services">
       <div className="rd-container rd-mega-grid">
         {SERVICES.map((s, i) => (
-          <Link key={s.id} href={`/services#${s.id}`} className="rd-mega-item" onClick={onClose}>
+          <Link key={s.id} href={serviceHref(s.id)} className="rd-mega-item" onClick={onClose}>
             <span className="rd-mega-no">{String(i + 1).padStart(2, '0')}</span>
             <span className="rd-mega-thumb" style={{ backgroundImage: `url(${s.image})` }} aria-hidden />
             <span className="rd-mega-text">
@@ -77,7 +78,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               {svcOpen && (
                 <ul id="rd-mobile-svc" className="rd-mobile-svc">
                   {SERVICES.map((s) => (
-                    <li key={s.id}><Link href={`/services#${s.id}`} onClick={onClose}>{s.name}</Link></li>
+                    <li key={s.id}><Link href={serviceHref(s.id)} onClick={onClose}>{s.name}</Link></li>
                   ))}
                 </ul>
               )}
@@ -128,8 +129,8 @@ export default function Header() {
         <nav className="rd-nav" aria-label="Primary">
           {NAV_ITEMS.map((n) =>
             n.mega ? (
-              <div key={n.label} className="rd-nav-mega" onMouseEnter={show}>
-                <Link href={n.href!} className={`rd-nav-link ${pathname === n.href ? 'is-active' : ''}`}>{n.label}</Link>
+              <div key={n.label} className={`rd-nav-mega ${pathname?.startsWith(n.href!) ? 'is-active' : ''}`} onMouseEnter={show}>
+                <Link href={n.href!} className="rd-nav-link">{n.label}</Link>
                 <button className="rd-nav-caret" aria-expanded={megaOpen} aria-controls="rd-mega"
                         aria-label="Show services" onClick={() => setMegaOpen(!megaOpen)}>
                   <Plus className={`rd-plus ${megaOpen ? 'is-open' : ''}`} aria-hidden />
@@ -138,7 +139,7 @@ export default function Header() {
             ) : n.soon ? (
               <span key={n.label} className="rd-nav-link is-soon" aria-disabled="true" title="Coming soon">{n.label}</span>
             ) : (
-              <Link key={n.label} href={n.href!} className="rd-nav-link" onMouseEnter={hide}>{n.label}</Link>
+              <Link key={n.label} href={n.href!} className={`rd-nav-link ${pathname === n.href || (n.href !== '/' && pathname?.startsWith(n.href! + '/')) ? 'is-active' : ''}`} onMouseEnter={hide}>{n.label}</Link>
             )
           )}
         </nav>

@@ -1,6 +1,6 @@
 // Content for the Phase 01 homepage redesign — kept separate from presentation.
 
-export const CALENDLY_URL = 'https://calendly.com/clickminemedia/30min';
+export const CALENDLY_URL = 'https://calendly.com/meet-clickminemedia/30min';
 
 export function openCalendly(e?: { preventDefault: () => void }) {
   if (e) e.preventDefault();
@@ -11,12 +11,13 @@ export function openCalendly(e?: { preventDefault: () => void }) {
 
 export type NavItem = { label: string; href?: string; soon?: boolean; mega?: boolean };
 
-// Studio and Insights have no routes yet — rendered as "soon", never as broken links.
+// Studio has no route yet — rendered as "soon", never as broken links.
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Work', href: '/#work' },
   { label: 'Services', href: '/services', mega: true },
   { label: 'Studio', soon: true },
-  { label: 'Insights', soon: true },
+  { label: 'Blogs', href: '/blog' },
+  { label: 'FAQ', href: '/faq' },
 ];
 
 export const SERVICES = [

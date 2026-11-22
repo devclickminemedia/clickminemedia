@@ -10,7 +10,10 @@ import { display, body } from './components/redesign/fonts';
 import './components/redesign/redesign.css';
 import Footer from './components/Footer';
 import LeadForm from './components/LeadForm';
+import FaqList from './components/FaqList';
+import { faqSections, faqJsonLd } from './lib/faqs';
 import TiltedCard, { TiltedCardLayer } from './components/TiltedCard';
+import { serviceHref } from './lib/services';
 import {
   ArrowUpRight,
   Zap,
@@ -21,10 +24,10 @@ export default function Home() {
     if (e) e.preventDefault();
     if (typeof window !== 'undefined' && (window as any).Calendly) {
       (window as any).Calendly.initPopupWidget({
-        url: 'https://calendly.com/clickminemedia/30min',
+        url: 'https://calendly.com/meet-clickminemedia/30min',
       });
     } else {
-      window.open('https://calendly.com/clickminemedia/30min', '_blank');
+      window.open('https://calendly.com/meet-clickminemedia/30min', '_blank');
     }
   };
 
@@ -134,7 +137,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {servicesList.map((svc) => {
                 return (
-                  <Link key={svc.id} href={`/services#${svc.id}`} className="block h-full" aria-label={`Learn more about ${svc.title}`}>
+                  <Link key={svc.id} href={serviceHref(svc.id)} className="block h-full" aria-label={`Learn more about ${svc.title}`}>
                   <TiltedCard
                     containerWidth="100%"
                     containerHeight="auto"
@@ -267,7 +270,7 @@ export default function Home() {
                     Prefer direct booking?
                   </p>
                   <a
-                    href="https://calendly.com/clickminemedia/30min"
+                    href="https://calendly.com/meet-clickminemedia/30min"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={openCalendly}
@@ -292,6 +295,28 @@ export default function Home() {
                   <LeadForm />
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="py-10 sm:py-14 px-6 sm:px-8">
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqSections[0].items.slice(0, 6))) }} />
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 text-[#1f1b16]">
+            <div className="lg:col-span-4">
+              <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 mb-3">Frequently asked questions</h2>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+                Quick answers about how we work, pricing and results.
+              </p>
+              <Link
+                href="/faq"
+                className="inline-flex items-center gap-2 text-[15px] font-medium hover:text-[#C2410C] transition-colors"
+              >
+                See all questions <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />
+              </Link>
+            </div>
+            <div className="lg:col-span-8">
+              <FaqList items={faqSections[0].items.slice(0, 6)} />
             </div>
           </div>
         </section>

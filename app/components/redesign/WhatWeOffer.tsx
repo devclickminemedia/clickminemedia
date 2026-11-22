@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { serviceHref } from '../../lib/services';
 import { ArrowUpRight, PenTool, Image as ImageIcon, Type, Video, Layers, Camera, Sparkles, Megaphone, Search } from 'lucide-react';
 
 // Three capability groups that together cover the six services on /services.
@@ -60,7 +61,7 @@ export default function WhatWeOffer() {
         </div>
         <div className="wo-box">
           {CARDS.map((c, i) => (
-            <Link key={c.key} href={`/services#${c.services[0]}`} className="wo-card wo-reveal" style={{ ['--d' as any]: `${i * 0.12}s` }}>
+            <Link key={c.key} href={serviceHref(c.services[0])} className="wo-card wo-reveal" style={{ ['--d' as any]: `${i * 0.12}s` }}>
               <Visual k={c.key} />
               <div className="wo-text">
                 <span className="wo-label">{c.label}</span>

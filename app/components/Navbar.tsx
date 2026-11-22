@@ -13,10 +13,10 @@ export default function Navbar() {
     if (e) e.preventDefault();
     if (typeof window !== 'undefined' && (window as any).Calendly) {
       (window as any).Calendly.initPopupWidget({
-        url: 'https://calendly.com/clickminemedia/30min',
+        url: 'https://calendly.com/meet-clickminemedia/30min',
       });
     } else {
-      window.open('https://calendly.com/clickminemedia/30min', '_blank');
+      window.open('https://calendly.com/meet-clickminemedia/30min', '_blank');
     }
   };
 
@@ -77,7 +77,7 @@ export default function Navbar() {
         {/* Header Action CTA */}
         <div className="hidden md:flex items-center gap-4">
           <a
-            href="https://calendly.com/clickminemedia/30min"
+            href="https://calendly.com/meet-clickminemedia/30min"
             target="_blank"
             rel="noopener noreferrer"
             onClick={openCalendly}
@@ -129,7 +129,7 @@ export default function Navbar() {
           </a>
           <div className="pt-2">
             <a
-              href="https://calendly.com/clickminemedia/30min"
+              href="https://calendly.com/meet-clickminemedia/30min"
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => {

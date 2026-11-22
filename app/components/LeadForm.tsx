@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Send } from 'lucide-react';
+import { validateLead, type LeadErrors, type LeadField } from '../lib/leadValidation';
 
 // Name / phone / email form. Posts to /api/lead, then goes to /thank-you.
 export default function LeadForm({ idPrefix = 'f', onSuccess }: { idPrefix?: string; onSuccess?: () => void }) {
@@ -12,20 +13,19 @@ export default function LeadForm({ idPrefix = 'f', onSuccess }: { idPrefix?: str
   const [sending, setSending] = useState(false);
   const startedAt = useRef(Date.now()); // used by the server to spot instant bot submissions
   const [trap, setTrap] = useState(''); // hidden honeypot, real visitors never fill it
+  const [errors, setErrors] = useState<LeadErrors>({});
+  const [touched, setTouched] = useState<Partial<Record<LeadField, boolean>>>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { name, phone, email } = formState;
-    if (!name.trim() || !phone.trim() || !email.trim()) {
-      setFormError('Please fill in your name, phone number and email.');
-      return;
-    }
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
-      setFormError('Please enter a valid email address.');
-      return;
-    }
-    if (phone.replace(/\D/g, '').length < 7) {
-      setFormError('Please enter a valid phone number.');
+    const { name } = formState;
+    const errs = validateLead(formState);
+    setErrors(errs);
+    setTouched({ name: true, phone: true, email: true });
+    const firstBad = (['name', 'phone', 'email'] as const).find((k) => errs[k]);
+    if (firstBad) {
+      setFormError(null);
+      document.getElementById(`${idPrefix}-${firstBad}`)?.focus();
       return;
     }
     setFormError(null);
@@ -58,9 +58,9 @@ export default function LeadForm({ idPrefix = 'f', onSuccess }: { idPrefix?: str
   };
 
   const fields = [
-    { key: 'name', label: 'Name', type: 'text', placeholder: 'Your full name', auto: 'name' },
-    { key: 'phone', label: 'Phone number', type: 'tel', placeholder: '+91 98765 43210', auto: 'tel' },
-    { key: 'email', label: 'Email', type: 'email', placeholder: 'you@example.com', auto: 'email' },
+    { key: 'name', label: 'Name', type: 'text', placeholder: 'Your full name', auto: 'name', mode: 'text', max: 80 },
+    { key: 'phone', label: 'Phone number', type: 'tel', placeholder: '98765 43210', auto: 'tel', mode: 'tel', max: 16 },
+    { key: 'email', label: 'Email', type: 'email', placeholder: 'you@example.com', auto: 'email', mode: 'email', max: 200 },
   ] as const;
 
   return (
@@ -82,23 +82,54 @@ export default function LeadForm({ idPrefix = 'f', onSuccess }: { idPrefix?: str
           onChange={(e) => setTrap(e.target.value)}
         />
       </div>
-      {fields.map((f) => (
-        <div key={f.key}>
-          <label htmlFor={`${idPrefix}-${f.key}`} className="block text-sm font-medium text-slate-700 mb-2">
-            {f.label}
-          </label>
-          <input
-            id={`${idPrefix}-${f.key}`}
-            type={f.type}
-            autoComplete={f.auto}
-            required
-            placeholder={f.placeholder}
-            value={formState[f.key]}
-            onChange={(e) => setFormState({ ...formState, [f.key]: e.target.value })}
-            className="w-full h-12 px-4 rounded-[10px] bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-base focus:border-[#FF751F] focus:bg-white focus:outline-none transition-colors"
-          />
-        </div>
-      ))}
+      {fields.map((f) => {
+        const id = `${idPrefix}-${f.key}`;
+        const err = touched[f.key] ? errors[f.key] : undefined;
+        return (
+          <div key={f.key}>
+            <label htmlFor={id} className="block text-sm font-medium text-slate-700 mb-2">
+              {f.label}
+            </label>
+            <div className={f.key === 'phone' ? 'relative' : undefined}>
+              {f.key === 'phone' && (
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-base text-slate-500 pointer-events-none">+91</span>
+              )}
+              <input
+                id={id}
+                name={f.key}
+                type={f.type}
+                inputMode={f.mode}
+                autoComplete={f.auto}
+                maxLength={f.max}
+                required
+                aria-invalid={!!err}
+                aria-describedby={err ? `${id}-error` : undefined}
+                placeholder={f.placeholder}
+                value={formState[f.key]}
+                onChange={(e) => {
+                  const value = f.key === 'phone' ? e.target.value.replace(/[^\d\s+()-]/g, '') : e.target.value;
+                  const next = { ...formState, [f.key]: value };
+                  setFormState(next);
+                  if (touched[f.key]) setErrors(validateLead(next));
+                }}
+                onBlur={() => {
+                  if (!formState[f.key]) return; // don't nag on an untouched empty field
+                  setTouched((t) => ({ ...t, [f.key]: true }));
+                  setErrors(validateLead(formState));
+                }}
+                className={`w-full h-12 ${f.key === 'phone' ? 'pl-14' : 'pl-4'} pr-4 rounded-[10px] bg-slate-50 border text-slate-900 placeholder:text-slate-400 text-base focus:bg-white focus:outline-none transition-colors ${
+                  err ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-[#FF751F]'
+                }`}
+              />
+            </div>
+            {err && (
+              <p id={`${id}-error`} className="mt-1.5 text-sm text-red-600">
+                {err}
+              </p>
+            )}
+          </div>
+        );
+      })}
       <button
         type="submit"
         disabled={sending}
