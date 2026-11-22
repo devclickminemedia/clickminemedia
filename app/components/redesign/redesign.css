@@ -202,7 +202,6 @@
 @media (max-width: 1023px) { .pd-stat { left: -2%; width: 28%; } }
 @media (max-width: 640px) {
   .rd-hero { padding-top: 108px; }
-  .rd-hero-copy::before { content: 'Digital growth studio'; margin-bottom: 18px; padding: 7px 14px; border-radius: 999px; font: 600 11px/1 var(--fb); letter-spacing: .14em; text-transform: uppercase; color: var(--hi); background: rgba(255,117,31,.1); border: 1px solid rgba(255,117,31,.25); }
   .rd-hero-title { font-size: clamp(44px, 13vw, 60px); line-height: .95; }
   .rd-hero-sub { margin-top: 16px; font-size: 16px; max-width: 320px; }
   .rd-hero-ctas { flex-direction: column; width: 100%; max-width: 340px; gap: 10px; margin-top: 26px; }
