@@ -147,6 +147,7 @@ export async function POST(req: Request) {
       transporter.sendMail({
         from,
         to: email,
+        replyTo: process.env.SUPPORT_EMAIL || 'support@clickminemedia.com',
         subject: 'We have received your details | Click Mine Media',
         text: [
           `Dear ${firstName},`,
@@ -165,7 +166,7 @@ export async function POST(req: Request) {
           `Phone:  ${phone}`,
           `Email:  ${email}`,
           '',
-          'If any of these details are incorrect, simply reply to this email.',
+          'If any of these details are incorrect, simply reply to this email or write to support@clickminemedia.com.',
           '',
           'Kind regards,',
           'Team Click Mine Media',
