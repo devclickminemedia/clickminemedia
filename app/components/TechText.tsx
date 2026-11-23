@@ -60,6 +60,8 @@ export interface TechTextProps {
   intro?: 'none' | 'type' | 'assemble' | 'metrics';
   introDuration?: number;
   guides?: boolean;
+  /** Single-line only: characters from this index onward get the CMM gradient. */
+  gradientFrom?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -86,6 +88,7 @@ const TechText: React.FC<TechTextProps> = ({
   draggable = true,
   bounce = 0.4,
   sweep = true,
+  gradientFrom,
   speed = 1,
   clickKick = true,
   intro = 'none',
@@ -127,6 +130,7 @@ const TechText: React.FC<TechTextProps> = ({
       intro,
       introDuration,
       guides,
+      gradientFrom,
     };
     wakeRef.current();
   });
@@ -219,11 +223,12 @@ const TechText: React.FC<TechTextProps> = ({
           glyph.totalLines >= 3 &&
           glyph.lineIndex >= 2) ||
         (glyph.totalLines === 2 && glyph.lineIndex === 1) ||
+        (glyph.totalLines === 1 && s.gradientFrom != null && glyph.index >= s.gradientFrom) ||
         s.color === 'gradient';
 
       let renderInk: any = ink;
       if (isGradientLine) {
-        const bounds = view.lineBounds?.[glyph.lineIndex] || {
+        const bounds = (glyph.totalLines === 1 && view.gradLeft != null ? { left: view.gradLeft, right: view.right } : null) || view.lineBounds?.[glyph.lineIndex] || {
           left: glyph.box.x1,
           right: glyph.box.x2,
         };
@@ -339,6 +344,7 @@ const TechText: React.FC<TechTextProps> = ({
             { y0: baseline, y1: inkBottom, up: false, order: 1 },
           ].filter((band) => band.y1 - band.y0 > 0.5),
         };
+        if (s.gradientFrom != null) (next as any).gradLeft = x + probe.measureText(Array.from(s.text).slice(0, s.gradientFrom).join('')).width;
         word = next;
 
         const chars = Array.from(s.text);
@@ -356,6 +362,7 @@ const TechText: React.FC<TechTextProps> = ({
             baseline,
             lineIndex: 0,
             totalLines: 1,
+            index: i,
             box: {
               x1: gx - own.actualBoundingBoxLeft,
               y1: baseline - own.actualBoundingBoxAscent,
