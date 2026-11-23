@@ -210,9 +210,45 @@
   .rd-hero-visual { height: 280px; margin-top: 28px; }
   .pd-tilt { width: 135vw; transform: translateX(-50%) rotateX(calc(16deg * (1 - var(--flat)))); animation: pd-enter-m 1.4s var(--ease) 1.2s both; }
   @keyframes pd-enter-m { from { opacity: 0; transform: translateX(-50%) translateY(80px) rotateX(36deg) } }
-  .pd-stat, .pd-particles { display: none; }
-  .pd-planet { top: 34%; width: 260vw; }
+  .pd-stat, .pd-particles, .pd-tilt { display: none; }
+  .pd-planet { top: 30%; width: 260vw; }
+  .rd-hero-visual { height: min(660px, 168vw); }
 }
+
+/* ---------- mobile phone mockup ---------- */
+.pd-phone { display: none; position: absolute; left: 50%; top: 0; z-index: 2; width: min(300px, 78vw); aspect-ratio: 9 / 19; padding: 10px; border-radius: 46px;
+  background: linear-gradient(160deg, #2a2f3a, #111827); box-shadow: 0 0 0 2px #3b4252 inset, 0 50px 80px -24px rgba(17,24,39,.45), 0 0 80px -10px rgba(255,117,31,.45);
+  transform: translateX(-50%) perspective(1200px) rotateX(calc(14deg * (1 - var(--flat)))); transform-origin: 50% 0;
+  animation: pd-phone-in 1.3s var(--ease) 1.2s both; }
+@keyframes pd-phone-in { from { opacity: 0; translate: 0 80px } }
+.pd-ph-screen { position: relative; height: 100%; overflow: hidden; border-radius: 37px; background: #F7F4EE; padding: 0 12px; display: flex; flex-direction: column; gap: 9px; text-align: left; font-size: 10px; color: var(--ink); }
+.pd-ph-status { display: flex; justify-content: space-between; align-items: center; height: 30px; padding: 0 10px; font: 600 10px/1 var(--fb); }
+.pd-ph-status span:last-child { letter-spacing: -1px; font-size: 7px; }
+.pd-ph-notch { width: 80px; height: 22px; border-radius: 99px; background: #111827; }
+.pd-ph-head { display: flex; justify-content: space-between; align-items: center; }
+.pd-ph-head b { font: 600 15px/1 var(--fd); }
+.pd-ph-head em { font: 600 8px/1 var(--fb); font-style: normal; letter-spacing: .08em; text-transform: uppercase; padding: 4px 7px; border-radius: 99px; color: var(--hi); background: rgba(255,117,31,.12); }
+.pd-ph-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.pd-ph-kpis > div, .pd-ph-card { padding: 9px 10px; border-radius: 12px; background: #fff; border: 1px solid rgba(17,24,39,.06); box-shadow: 0 4px 10px -6px rgba(17,24,39,.12); }
+.pd-ph-kpis small { display: block; color: var(--muted); font-size: 9px; }
+.pd-ph-kpis b { display: block; font: 600 17px/1.2 var(--fd); margin: 2px 0 6px; }
+.pd-ph-kpis span { display: block; height: 3px; border-radius: 99px; background: rgba(17,24,39,.07); }
+.pd-ph-kpis span i { display: block; height: 100%; border-radius: inherit; background: var(--grad); }
+.pd-ph-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.pd-ph-row b { font: 600 11px/1.2 var(--fd); }
+.pd-ph-row small { color: var(--muted); font-size: 8px; }
+.pd-ph-card .pd-graph { height: 70px; min-height: 0; }
+.pd-ph-card .pd-review { font-size: 9.5px; padding: 6px 0; }
+.pd-ph-assets { padding: 10px; border-radius: 14px; color: #fff; background: linear-gradient(140deg, #FF751F, #FF4B43 50%, #E50069); box-shadow: 0 12px 24px -10px rgba(229,0,105,.5); }
+.pd-ph-assets b { font: 600 11px/1 var(--fd); }
+.pd-ph-assets div { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+.pd-ph-assets span { display: flex; align-items: center; gap: 5px; padding: 7px; border-radius: 8px; font-size: 9px; font-weight: 500; background: rgba(255,255,255,.2); }
+.pd-ph-assets svg { width: 12px; height: 12px; }
+.pd-ph-tab { position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; justify-content: space-around; padding: 9px 0; border-radius: 20px; background: rgba(255,255,255,.92); box-shadow: 0 6px 20px -6px rgba(17,24,39,.2); }
+.pd-ph-tab span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; color: var(--muted); }
+.pd-ph-tab span.is-on { background: rgba(255,117,31,.14); color: var(--hi); }
+.pd-ph-tab svg { width: 15px; height: 15px; }
+@media (max-width: 640px) { .pd-phone { display: block; } }
 
 /* ---------- what we offer ---------- */
 .wo { position: relative; padding: clamp(48px, 5vw, 72px) 0 0; }

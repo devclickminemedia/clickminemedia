@@ -8,24 +8,24 @@ import { Folder, FileText, Globe, Film, Package, Check, Circle, Search, Bell, La
 
 const LINE = [28, 40, 34, 50, 46, 60, 55, 68, 63, 76, 72, 86];
 
-function Graph() {
+function Graph({ id = 'pd' }: { id?: string }) {
   const pts = LINE.map((v, i) => `${(i / (LINE.length - 1)) * 100},${100 - v}`).join(' ');
   return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="pd-graph">
       <defs>
-        <linearGradient id="pdFill" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`${id}Fill`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#FF751F" stopOpacity=".5" />
           <stop offset="1" stopColor="#E50069" stopOpacity="0" />
         </linearGradient>
-        <linearGradient id="pdStroke" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id={`${id}Stroke`} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stopColor="#FF751F" />
           <stop offset=".5" stopColor="#FF4B43" />
           <stop offset="1" stopColor="#E50069" />
         </linearGradient>
       </defs>
       {[25, 50, 75].map((y) => <line key={y} x1="0" x2="100" y1={y} y2={y} stroke="rgba(255,255,255,.06)" vectorEffect="non-scaling-stroke" />)}
-      <polygon points={`0,100 ${pts} 100,100`} fill="url(#pdFill)" />
-      <polyline points={pts} fill="none" stroke="url(#pdStroke)" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+      <polygon points={`0,100 ${pts} 100,100`} fill={`url(#${id}Fill)`} />
+      <polyline points={pts} fill="none" stroke={`url(#${id}Stroke)`} strokeWidth="2" vectorEffect="non-scaling-stroke" />
     </svg>
   );
 }
@@ -149,6 +149,33 @@ export default function Dashboard3D() {
           <div className="pd-mini">{[40, 62, 48, 74, 58, 86, 70].map((h, i) => <i key={i} style={{ height: `${h}%` }} />)}</div>
           <div className="pd-stat-row"><span><i className="o" />Paid</span><span><i className="c" />Social</span><span><i className="p" />Search</span></div>
           <small className="pd-sample">Sample numbers</small>
+        </div>
+      </div>
+      {/* mobile-only: the same workspace as a phone app */}
+      <div className="pd-phone">
+        <div className="pd-ph-screen">
+          <div className="pd-ph-status"><span>9:41</span><i className="pd-ph-notch" /><span>●●●</span></div>
+          <div className="pd-ph-head"><b>CMM Workspace</b><em>Sample</em></div>
+          <div className="pd-ph-kpis">
+            {[['Reach', '128K', 72], ['Engagement', '6.4%', 54], ['Clicks', '9.2K', 63], ['Leads', '412', 41]].map(([k, v, w]) => (
+              <div key={k as string}><small>{k}</small><b>{v}</b><span><i style={{ width: `${w}%` }} /></span></div>
+            ))}
+          </div>
+          <div className="pd-ph-card">
+            <div className="pd-ph-row"><b>Growth Overview</b><small>Illustrative</small></div>
+            <Graph id="ph" />
+          </div>
+          <div className="pd-ph-assets">
+            <b>Creative Assets</b>
+            <div>{['Landing Pages', 'Creatives', 'Content', 'Copy'].map((f) => <span key={f}><Folder />{f}</span>)}</div>
+          </div>
+          <div className="pd-ph-card">
+            <div className="pd-ph-row"><b>Campaign Reviews</b></div>
+            {[['Spring ad set', 'Approved', 'ok'], ['Launch reel v2', 'Changes', 'warn']].map(([t, st, k]) => (
+              <div key={t} className="pd-review"><span>{t}</span><em className={`is-${k}`}>{st}</em></div>
+            ))}
+          </div>
+          <nav className="pd-ph-tab">{[LayoutGrid, BarChart3, Palette, Folder, Users].map((I, i) => <span key={i} className={i === 0 ? 'is-on' : ''}><I /></span>)}</nav>
         </div>
       </div>
     </div>
