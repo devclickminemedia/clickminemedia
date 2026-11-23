@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://clickminemedia.com'),
   // Google Search Console HTML-tag verification. Set GOOGLE_SITE_VERIFICATION in the hosting env.
   verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
-  title: 'Click Mine Media | Digital Marketing, SEO & Creative Growth',
+  title: 'Click Mine Media',
   description: 'Click Mine Media helps ambitious brands turn attention into revenue through smart digital marketing, standout creative, and high-performance campaigns.',
   keywords: [
     'digital marketing agency',
