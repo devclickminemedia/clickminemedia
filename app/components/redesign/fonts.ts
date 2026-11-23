@@ -1,4 +1,25 @@
-import { Space_Grotesk, Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 
-export const display = Space_Grotesk({ subsets: ['latin'], weight: ['500', '700'], variable: '--rd-display', display: 'swap' });
-export const body = Inter({ subsets: ['latin'], variable: '--rd-body', display: 'swap' });
+// Self-hosted (app/fonts) so builds never depend on fetching Google Fonts.
+export const display = localFont({
+  src: '../../fonts/SpaceGrotesk-latin.woff2',
+  weight: '300 700',
+  variable: '--rd-display',
+  display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
+});
+
+export const body = localFont({
+  src: '../../fonts/Inter-latin.woff2',
+  weight: '100 900',
+  variable: '--rd-body',
+  display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
+});
+
+export const serif = localFont({
+  src: '../../fonts/Newsreader-latin.woff2',
+  weight: '400',
+  display: 'swap',
+  fallback: ['Georgia', 'serif'],
+});

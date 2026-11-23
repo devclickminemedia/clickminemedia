@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
-import { Newsreader } from 'next/font/google';
+import { serif } from '../components/redesign/fonts';
 import BlogGrid, { type PostCard } from './BlogGrid';
 import SiteHeader from '../components/redesign/SiteHeader';
 import Footer from '../components/Footer';
 import { sortedPosts, formatDate } from '../lib/blog';
 import FaqBlock from '../components/FaqBlock';
-
-const serif = Newsreader({ subsets: ['latin'], weight: ['400'] });
 
 export const metadata: Metadata = {
   title: 'Blog | Click Mine Media',
