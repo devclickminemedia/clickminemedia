@@ -6,6 +6,7 @@ import Header from './components/redesign/Header';
 import HeroSection from './components/redesign/HeroSection';
 import ServicesShowcase from './components/redesign/SelectedWork';
 import WhatWeOffer from './components/redesign/WhatWeOffer';
+import ScrollReveal from './components/redesign/ScrollReveal';
 import { display, body } from './components/redesign/fonts';
 import './components/redesign/redesign.css';
 import Footer from './components/Footer';
@@ -71,7 +72,7 @@ export default function Home() {
         {/* ========================================================================= */}
         <section id="process" className="py-10 sm:py-14 px-6 sm:px-8 bg-slate-50/70 border-y border-slate-200/80">
           <div className="max-w-7xl mx-auto">
-            <div className="max-w-2xl mb-8">
+            <div className="max-w-2xl mb-8" data-reveal="up">
               <h2 className="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight mb-2.5">
                 High Speed. Zero Friction.
               </h2>
@@ -81,11 +82,11 @@ export default function Home() {
             </div>
 
             {/* 4 Process Steps */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="rv-process grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" data-reveal-stagger>
               {processSteps.map((step) => (
                 <div
                   key={step.step}
-                  className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
+                  className="rv-step p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:-translate-y-1 transition-[box-shadow,transform] duration-300 flex flex-col justify-between"
                 >
                   <div>
                     <span className="text-3xl font-semibold text-slate-200 block mb-2 font-mono">
@@ -115,7 +116,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Left Column: Conversion Copy */}
-              <div className="lg:col-span-5">
+              <div className="lg:col-span-5" data-reveal="left">
                 <h2 className="text-3xl sm:text-5xl font-semibold text-slate-900 leading-tight mb-3 tracking-tight">
                   Let&apos;s build something together
                 </h2>
@@ -123,7 +124,7 @@ export default function Home() {
                   Tell us where your brand is today and what you want to achieve. We&apos;ll formulate a customized plan to accelerate your growth.
                 </p>
 
-                <div className="space-y-2.5 pt-3.5 border-t border-slate-200/80">
+                <div className="space-y-2.5 pt-3.5 border-t border-slate-200/80" data-reveal-stagger>
                   <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                     <span className="w-2 h-2 rounded-full bg-[#FF751F]" />
                     <span>Cross-channel strategy tailored to your margins</span>
@@ -156,7 +157,7 @@ export default function Home() {
               </div>
 
               {/* Right Column: Sleek Light Consultation Form */}
-              <div className="lg:col-span-7">
+              <div className="lg:col-span-7" data-reveal="scale">
                 <div className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-xl relative">
                   <h3 className="text-2xl font-medium text-slate-900 mb-1">
                     Get a call back
@@ -176,7 +177,7 @@ export default function Home() {
         <section id="faq" className="py-10 sm:py-14 px-6 sm:px-8">
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqSections[0].items.slice(0, 6))) }} />
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 text-[#1f1b16]">
-            <div className="lg:col-span-4">
+            <div className="lg:col-span-4" data-reveal="left">
               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 mb-3">Frequently asked questions</h2>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
                 Quick answers about how we work, pricing and results.
@@ -188,7 +189,7 @@ export default function Home() {
                 See all questions <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />
               </Link>
             </div>
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8" data-reveal="up">
               <FaqList items={faqSections[0].items.slice(0, 6)} />
             </div>
           </div>
@@ -196,7 +197,8 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <div data-reveal="fade"><Footer /></div>
+      <ScrollReveal />
     </div>
   );
 }
