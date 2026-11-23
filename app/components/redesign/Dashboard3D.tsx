@@ -33,6 +33,23 @@ function Graph() {
 export default function Dashboard3D() {
   const ref = useRef<HTMLDivElement>(null);
 
+  // Scroll-linked: dashboard starts tilted back and becomes flat as the visitor scrolls.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const p = Math.min(Math.max(window.scrollY / (window.innerHeight * 0.55), 0), 1);
+      el.style.setProperty('--flat', p.toFixed(3));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
+  }, []);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
