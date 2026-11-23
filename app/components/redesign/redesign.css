@@ -88,6 +88,8 @@
 
 /* ---------- hero ---------- */
 .rd-dot-acc { color: var(--acc); }
+.rd-hero-tech { position: relative; width: min(100%, 1000px); height: clamp(150px, min(24vw, 30vh), 290px); font-family: var(--fd); }
+@media (max-width: 640px) { .rd-hero-tech { height: clamp(130px, 38vw, 170px); } }
 .rd-header { animation: rd-fade-only .8s ease .45s both; }
 @keyframes rd-fade-only { from { opacity: 0 } to { opacity: 1 } }
 .rd-hero { position: relative; overflow: hidden; padding-top: clamp(130px, 18vh, 190px); text-align: center; isolation: isolate; }
