@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -61,18 +62,20 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   }, [open, onClose]);
 
   if (!open) return null;
-  return (
+  // Portal into .rd-root so the header's backdrop-filter can't trap this fixed overlay.
+  const host = document.querySelector('.rd-root') ?? document.body;
+  return createPortal(
     <div ref={panelRef} className="rd-mobile" role="dialog" aria-modal="true" aria-label="Menu">
       <div className="rd-mobile-top">
         <Logo />
         <button ref={closeRef} onClick={onClose} className="rd-icon-btn" aria-label="Close menu"><X /></button>
       </div>
       <nav className="rd-mobile-nav">
-        {NAV_ITEMS.map((n, i) =>
+        {NAV_ITEMS.map((n) =>
           n.mega ? (
             <div key={n.label}>
               <button className="rd-mobile-link" aria-expanded={svcOpen} aria-controls="rd-mobile-svc" onClick={() => setSvcOpen(!svcOpen)}>
-                <span className="rd-mobile-no">0{i + 1}</span>{n.label}
+                {n.label}
                 <Plus className={`rd-plus ${svcOpen ? 'is-open' : ''}`} aria-hidden />
               </button>
               {svcOpen && (
@@ -85,11 +88,11 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             </div>
           ) : n.soon ? (
             <span key={n.label} className="rd-mobile-link is-soon" aria-disabled="true">
-              <span className="rd-mobile-no">0{i + 1}</span>{n.label}<em>Soon</em>
+              {n.label}<em>Soon</em>
             </span>
           ) : (
             <Link key={n.label} href={n.href!} className="rd-mobile-link" onClick={onClose}>
-              <span className="rd-mobile-no">0{i + 1}</span>{n.label}
+              {n.label}
             </Link>
           )
         )}
@@ -98,7 +101,8 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
          onClick={(e) => { onClose(); openCalendly(e); }}>
         Let&apos;s Talk <ArrowUpRight aria-hidden />
       </a>
-    </div>
+    </div>,
+    host
   );
 }
 
