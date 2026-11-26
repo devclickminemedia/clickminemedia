@@ -9,7 +9,7 @@ import FaqList from '../../components/FaqList';
 import { posts, formatDate, type Block } from '../../lib/blog';
 import { services } from '../../lib/services';
 import FaqBlock from '../../components/FaqBlock';
-import { faqsForService } from '../../lib/faqs';
+import { faqsForService, faqJsonLd } from '../../lib/faqs';
 
 const SITE = 'https://clickminemedia.com';
 
@@ -120,6 +120,9 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   return (
     <div className="min-h-screen bg-[#f7f4ee] text-[#1f1b16] selection:bg-[#1f1b16] selection:text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {p.faqs?.length ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(p.faqs.map((f) => ({ q: f.q, a: [f.a] })))) }} />
+      ) : null}
       <SiteHeader />
 
       <main className="px-6 sm:px-8 pt-32 sm:pt-36 pb-16">
