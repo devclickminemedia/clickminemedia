@@ -1,4 +1,9 @@
-// Blog posts. To add a post, append an object to `posts`.
+// Blog posts. To add a post, append an object to `posts` (or to a batch file in ./posts).
+import { batch1 } from './posts/batch1';
+import { batch2 } from './posts/batch2';
+import { batch3 } from './posts/batch3';
+import { batch4 } from './posts/batch4';
+import { batch5 } from './posts/batch5';
 // Inline text supports [link text](/path) and **bold**.
 
 export type Block =
@@ -206,6 +211,11 @@ export const posts: Post[] = [
       { q: 'Do I need a website to run ads?', a: 'A website or landing page is strongly recommended for both platforms, because it lets you track conversions and control the experience. Meta also supports lead forms and messaging ads that can work without a website for some goals.' },
     ],
   },
+  ...batch1,
+  ...batch2,
+  ...batch3,
+  ...batch4,
+  ...batch5,
 ];
 
 export const sortedPosts = () => [...posts].sort((a, b) => b.published.localeCompare(a.published));
